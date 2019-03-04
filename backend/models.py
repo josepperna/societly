@@ -9,7 +9,7 @@ class Student(models.Model):
     username = models.CharField(max_length = 30, unique = True)
     password = models.CharField(max_length = 256)
     picture = models.ImageField(blank = True)
-    email = models.EmailField()
+    email = models.EmailField(unique = True)
     firstname = models.CharField(max_length = 30)
     lastname = models.CharField(max_length = 30)
     degree = models.CharField(max_length = 50)
