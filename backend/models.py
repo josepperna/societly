@@ -37,7 +37,7 @@ class Student(models.Model):
 
 class Society(models.Model):
 
-    name = models.CharField(max_length = 30, unique = True)
+    name = models.CharField(max_length = 128, unique = True)
     description = models.TextField(max_length = 2000)
     logo = models.ImageField(blank = True)
     email = models.EmailField()
@@ -58,7 +58,7 @@ class Society(models.Model):
 
 class Event(models.Model):
 
-    name = models.CharField(max_length = 50)
+    name = models.CharField(max_length = 128)
     date = models.DateField()
     time = models.TimeField()
     description = models.TextField(max_length = 2000)
