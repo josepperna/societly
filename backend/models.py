@@ -5,6 +5,14 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 class Student(models.Model):
 
+    YEAR = (
+        ('1', 'Freshman'),
+        ('2', 'Sophomore'),
+        ('3', 'Junior'),
+        ('4', 'Senior'),
+        ('5', 'Postgraduate')
+    )
+
     matricNo = models.CharField(max_length = 10, unique = True, primary_key = True)
     username = models.CharField(max_length = 30, unique = True)
     password = models.CharField(max_length = 256)
@@ -13,9 +21,19 @@ class Student(models.Model):
     firstname = models.CharField(max_length = 30)
     lastname = models.CharField(max_length = 30)
     degree = models.CharField(max_length = 50)
+    year = models.CharField(choices = YEAR, default = '1', max_length = 1)
+
+    def fullname(self):
+        return "{} {}".format(self.firstname, self.lastname)
+
+    def get_username(self):
+        return self.username
+    
+    def get_email(self):
+        return self.email
 
     def __str__(self):
-        return self.firstname + " " + self.lastname
+        return self.matricNo
 
 
 class Society(models.Model):
@@ -73,3 +91,6 @@ class Membership(models.Model):
     society = models.ForeignKey(Society, on_delete = models.CASCADE)
     date_joined = models.DateField(auto_now = True)
     is_board = models.CharField(choices = ROLE, default = '2', max_length = 1)
+
+    def __str__(self):
+        return "{} {}".format(self.member, self.society)

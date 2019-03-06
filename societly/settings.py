@@ -26,7 +26,6 @@ SECRET_KEY = '0a57@7cx!_=5y6kwmuq(6wjhejnd)_+z5s-yr%ceykngg3llv)'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
-TIME_ZONE = 'Europe/London'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
@@ -69,6 +68,8 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 WSGI_APPLICATION = 'societly.wsgi.application'
 
