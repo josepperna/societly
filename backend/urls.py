@@ -3,6 +3,6 @@ from backend import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'society/', views.society_page, name='society_page')
+    url(r'about-us/', views.about_us, name='about-us')
 ]
 

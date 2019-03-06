@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .models import Student, Society, Event, Review, Membership
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello, this is the fucking Index Page")
+    return render(request, "societly/index.html") 
 
 def about_us(request):
     return HttpResponse("Hello again, this is the fucking about us page")

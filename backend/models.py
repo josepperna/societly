@@ -13,24 +13,23 @@ class Student(models.Model):
         ('5', 'Postgraduate')
     )
 
+    user = models.OneToOneField(User, default = "")
     matricNo = models.CharField(max_length = 10, unique = True, primary_key = True)
-    username = models.CharField(max_length = 30, unique = True)
     password = models.CharField(max_length = 256)
     picture = models.ImageField(blank = True)
-    email = models.EmailField(unique = True)
-    firstname = models.CharField(max_length = 30)
-    lastname = models.CharField(max_length = 30)
     degree = models.CharField(max_length = 50)
     year = models.CharField(choices = YEAR, default = '1', max_length = 1)
 
-    def fullname(self):
-        return "{} {}".format(self.firstname, self.lastname)
+    class Meta:
 
-    def get_username(self):
-        return self.username
+        verbose_name = "student"
+        verbose_name_plural = "students"
+
+    def get_username(self, user):
+        return user.username
     
-    def get_email(self):
-        return self.email
+    def get_email(self, user):
+        return user.email
 
     def __str__(self):
         return self.matricNo
@@ -48,6 +47,11 @@ class Society(models.Model):
     twitter = models.URLField()
     members = models.ManyToManyField(Student, through = 'Membership')
 
+    class Meta:
+
+        verbose_name = "society"
+        verbose_name_plural = "societies"
+
     def __str__(self):
         return self.name
 
@@ -62,6 +66,11 @@ class Event(models.Model):
     organized_by = models.ManyToManyField(Society, related_name = "organized_by")
     attended_by = models.ManyToManyField(Student, related_name = "attended_by")
 
+    class Meta:
+
+        verbose_name = "event"
+        verbose_name_plural = "events"
+
     def __str__(self):
         return self.name
 
@@ -75,6 +84,11 @@ class Review(models.Model):
     description = models.CharField(max_length = 2000)
     event = models.ForeignKey(Event, on_delete = models.CASCADE, related_name = "eventReviews")
     made_by = models.ForeignKey(Student, on_delete = models.CASCADE, related_name = "reviewed_by")
+
+    class Meta:
+
+        verbose_name = "review"
+        verbose_name_plural = "reviews"
 
     def __str__(self):
         return self.rating
