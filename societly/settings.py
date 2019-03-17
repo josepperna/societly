@@ -26,7 +26,7 @@ SECRET_KEY = '0a57@7cx!_=5y6kwmuq(6wjhejnd)_+z5s-yr%ceykngg3llv)'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 
 # Application definition
@@ -64,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -79,13 +80,13 @@ WSGI_APPLICATION = 'societly.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'societly',
-        'USER': 'societly',
-        'PASSWORD': 'societly',
-        'HOST': 'localhost',
-        'PORT': ''
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+<<<<<<< HEAD
     }
+=======
+        }
+>>>>>>> 2a612b296e8dac326e012d58c0682473ce67c159
 }
 
 
@@ -107,6 +108,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "backend.Student"
+
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = "/media/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -124,5 +131,5 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
+STATICFILES_DIRS = [STATIC_DIR, ]
 STATIC_URL = '/static/'

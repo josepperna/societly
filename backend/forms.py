@@ -2,6 +2,16 @@ from django import forms
 from .models import Student, Society, Event, Review, Membership
 from django.contrib.auth.models import User
 
+
+class LogInForm(forms.ModelForm):
+	
+	class Meta:
+		
+		model = Student
+		fields = ('username','password')
+	
+	
+	
 class SocietyForm(forms.ModelForm):
 
     name = forms.CharField(max_length = 128, help_text = "Please enter the name of the society")
@@ -38,37 +48,13 @@ class ReviewForm(forms.ModelForm):
     description = forms.CharField(widget = forms.Textarea)
 
     class Meta:
-
         model = Review
         exclude = ('event', 'made_by')
 
 
-class UserForm(forms.ModelForm):
-
-    password = forms.CharField(widget = forms.PasswordInput)
-
-    class Meta:
-
-        model = User
-        fields = ('username', 'email', 'password')
-
 
 class MemberForm(forms.ModelForm):
-
-    YEAR = (
-        ('1', 'Freshman'),
-        ('2', 'Sophomore'),
-        ('3', 'Junior'),
-        ('4', 'Senior'),
-        ('5', 'Postgraduate')
-    )
-
-    matricNo = forms.CharField(max_length = 10)
-    picture = forms.ImageField()
-    year = forms.ChoiceField(choices = YEAR, widget = forms.RadioSelect)
-    degree = forms.CharField(max_length = 50)
-
+	
     class Meta:
-
         model = Student
-        fields = ('matricNo', 'picture', 'year', 'degree')
+        fields = ('matricNo', 'username', 'password', 'picture', 'year', 'degree')

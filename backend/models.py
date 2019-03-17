@@ -1,9 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,AbstractUser
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
-class Student(models.Model):
+class Student(AbstractUser):
 
     YEAR = (
         ('1', 'Freshman'),
@@ -13,8 +14,9 @@ class Student(models.Model):
         ('5', 'Postgraduate')
     )
 
-    user = models.OneToOneField(User, default = "")
+
     matricNo = models.CharField(max_length = 10, unique = True, primary_key = True)
+    username = models.CharField(unique = True, max_length = 20)
     password = models.CharField(max_length = 256)
     picture = models.ImageField(blank = True)
     degree = models.CharField(max_length = 50)
@@ -25,11 +27,11 @@ class Student(models.Model):
         verbose_name = "student"
         verbose_name_plural = "students"
 
-    def get_username(self, user):
-        return user.username
+    def get_username(self):
+        return self.username
     
-    def get_email(self, user):
-        return user.email
+    def get_email(self):
+        return self.email
 
     def __str__(self):
         return self.matricNo
@@ -41,11 +43,11 @@ class Society(models.Model):
     description = models.TextField(max_length = 2000)
     logo = models.ImageField(blank = True)
     email = models.EmailField()
-    facebook = models.URLField()
-    linkedin = models.URLField()
-    instagram = models.URLField()
-    twitter = models.URLField()
-    members = models.ManyToManyField(Student, through = 'Membership')
+    facebook = models.URLField(blank = True)
+    linkedin = models.URLField(blank = True)
+    instagram = models.URLField(blank = True)
+    twitter = models.URLField(blank = True)
+    members = models.ManyToManyField(Student, through = 'Membership', related_name="matricNo_members_society")
 
     class Meta:
 
@@ -64,7 +66,7 @@ class Event(models.Model):
     description = models.TextField(max_length = 2000)
     image = models.ImageField(blank = True)
     organized_by = models.ManyToManyField(Society, related_name = "organized_by")
-    attended_by = models.ManyToManyField(Student, related_name = "attended_by")
+    attended_by = models.ManyToManyField(Student, related_name = "attended_by", blank = True)
 
     class Meta:
 
