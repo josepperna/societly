@@ -71,4 +71,4 @@ class MemberForm(forms.ModelForm):
     class Meta:
 
         model = Student
-        fields = ('matricNo', 'picture', 'year', 'degree')
+        fields = ('matricNo', 'picture', 'year', 'degree',)
