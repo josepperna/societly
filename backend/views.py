@@ -13,6 +13,7 @@ def index(request):
     return render(request, "societly/home.html",context=context_dict) 
 
 def log_in_form(request):
+	registered = False
 	
 	if request.method == 'POST':
 		form = LogInForm(request.POST)
