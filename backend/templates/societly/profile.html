@@ -13,6 +13,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
+
 </head>
 
 <body style = "height:100%; width:100%;">
@@ -22,14 +23,17 @@
 
         <div class="row  h-100">
             
-                <div id = "left" class="col-3 h-100 d-none d-md-block" style = "background-image: linear-gradient(blue, red); opacity:0.5" >
+                <div id = "left" class="col-3 h-100 d-none d-md-block" style = "background-image: linear-gradient(blue, red); opacity:0.5; text-align:center;" >
                     
-                        <h2><font color = "white">Societly</font></h2>
-                        <img src = "{{user.image.url}}" style = "border-radius:50%";>
-                    
-                        <a class="nav-link" href="" style = "color:white;"><h2>{{user.username}}</h2></a>
-                        <a class="nav-link" href="" style = "color:white;"><h4>{{user.matricNo}}</h4></a>
-                        <a class="nav-link" href="" style = "color:white;"><h4>{{user.degree}}</h4></a>
+                        <h2 style = ""><font color = "white">Societly</font></h2>
+                        
+        
+                        <a class="nav-link" href=""><h2  style = "color:white;display:inline-block;">Username{{student.username}}</h2></a>
+                        
+                        <div style = "height:45%; border-radius :50%;
+                        background-image: url('{{societies.0.logo.url}}');border : 3px solid #bf9de0; "></div>
+                        <a class="nav-link" href=""><h4  style = "color:white;text-align:center">Student{{student.matricNo}}</h4></a>
+                        <a class="nav-link" href=""><h4  style = "color:white;text-align:center">Student{{student.degree}}</h4></a>
                       
                 </div>
                 
@@ -39,7 +43,7 @@
                                   
                                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                       
-                                    <ul class="navbar-nav">
+                                    <ul class="navbar-nav ml-auto">
                                       <li class="nav-item active ml-auto">
                                         <a class="nav-link ml-auto" href="">Home<span class="sr-only">(current)</span></a>
                                       </li>
@@ -53,11 +57,11 @@
                                       </li>
 
                                       <li class="nav-item ">
-                                        <a class="nav-link" href="">{{user.username}}</a>
+                                        <a class="nav-link" href="">{{student.username}}</a>
                                       </li>
                                       
                                       <li class="nav-item ">
-                                        <img src="{user.image.url}" style = "width:90%; height:90%; border-radius:50%; ">
+                                        <img src="{{student.image.url}}" style = "width:90%; height:90%; border-radius:50%; ">
                                       </li>
                                     </ul>
                                     
@@ -72,10 +76,9 @@
                                 <div class="row col-12" style= " height:80%;">
                                         {% for soc in societies %}
                                         
-                                            <div class="d-none d-sm-block col-3" style = "border : 3px solid #bf9de0; bottom:5%;margin:2%;border-radius :25px;">
-                                                
-                                                <img src = "{soc.logo.url}" alt="society image" >
-                                                <h3 style = "position:absolute"> {{soc.name}} </h3>
+                                            <div class="societies d-none d-sm-block col-3" style = "border : 3px solid #bf9de0; bottom:5%;margin:2%;border-radius :25px;
+                                            background-image: url('{{soc.logo.url}}');">
+                                            <h3 style = "position:absolute"><font color="white">{{soc.name}} </font> </h3>
                                                 
                                             </div>
                                         {% endfor %}   
@@ -94,11 +97,11 @@
                                          <div class="row col-12" style= "height:80%;">                              
                                             {% for ev in events %}
                                             
-                                                <div class="d-none d-sm-block col-3" style = "border: 3px solid #bf9de0; bottom:5%;margin:2%;border-radius :25px;">
-                                                    
-                                                    <img src = "{ev.image.url}" alt = "event image" >
-                                                    <h3 style = "position:absolute"> {{ev.name}} </h3>
-                                                </div>
+                                            <div class="d-none d-sm-block col-3" style = "border : 3px solid #bf9de0; bottom:5%;margin:2%;border-radius :25px;
+                                            background-image: url('{{ev.image.url}}') ">
+                                                <h3 style = "position:absolute"><font color="white">{{ev.name}} </font> </h3>
+                                                
+                                            </div>
                                             {% endfor %}   
                                         
                                         <a class="btn btn-primary" style = "position:absolute; bottom:15px; right:10px" href="#" role="button"><div style = "float:right">See all</div></a>
