@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^userlogin/',views.log_in_form,name = 'logInForm'),
     url(r'^contact-us/', views.contact_us, name='contact_us'),
     url(r'^faq/', views.faq, name='faq'),
-    url(r'^society/(?P<society_name_slug>[\w\-]+)/$')
+    url(r'^society/(?P<society_name_slug>[\w\-]+)/$', views.society, name='society'),
     #url(r'events/', views.profile, name='events')
     url(r'<str:matricNo>/', views.profile_page, name='profile-page')
 ]

@@ -1,6 +1,7 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'societly.settings')
 
+from django.core.files import File
 import django
 django.setup()
 from backend.models import Student, Society
@@ -39,11 +40,13 @@ def add_society(name, desc, email, linkedin):
     s.description = desc
     s.email = email
     s.linkedin = linkedin
+    s.logo.save('abc.jpg', File(open('aaa.jpg', 'rb')))
     s.save()
     return s
 
 def add_student(matricNo, user, degree, year):
     s = Student.objects.get_or_create(matricNo=matricNo)[0]
+    s.picture.save('abc.jpg', File(open('aaa.jpg', 'rb')))
     #s.user = user
     s.save()
     return s
