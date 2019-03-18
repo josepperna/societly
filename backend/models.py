@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -50,9 +51,13 @@ class Society(models.Model):
     instagram = models.URLField(blank = True)
     twitter = models.URLField(blank = True)
     members = models.ManyToManyField(Student, through = 'Membership', related_name="matricNo_members_society")
+    slug = models.SlugField(blank = True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Society, self).save(*args, **kwargs)
 
     class Meta:
-
         verbose_name = "society"
         verbose_name_plural = "societies"
 
