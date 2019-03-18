@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^profile/', views.profile, name='profile'),
     url(r'^userlogin/',views.log_in_form,name = 'logInForm'),
     url(r'^contact-us/', views.contact_us, name='contact_us'),
+    url(r'^register/', views.register, name='register'),
     url(r'^faq/', views.faq, name='faq'),
     #url(r'events/', views.profile, name='events')
 

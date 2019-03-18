@@ -38,7 +38,7 @@ def register(request):
          user_form = UserForm()
          student_form = StudentForm()
     
-    return render(request, 'socielty/register.html', {'user_form':user_form,'student_form':student_form})
+    return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
     
 def log_in_form(request):
 
