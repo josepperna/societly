@@ -55,17 +55,6 @@ def log_in_form(request):
                 
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
-    
-
-
-def profile(request):
-	societies = Society.objects.all()[:3]
-	events = Event.objects.all()[:3]
-	print(societies)
-	print(events)
-	student = request.user.get_username()
-	context_dict =  {'societies':societies,'events':events, 'student' : student}
-	return render(request, "societly/profile.html",context=context_dict) 
 
 @login_required
 def society(request,  society_name_slug):
@@ -80,38 +69,24 @@ def society(request,  society_name_slug):
         context_dict['events'] = None
     return render(request, "societly/society.html", context = context_dict)
 
-    
-def about_us(request):
-    return HttpResponse("Hello again, this is the fucking about us page")
-
-def contact_us(request):
-    return HttpResponse("Hello again bitch, this is the fucking contact us page")
-
-def faq(request):
-    return HttpResponse("Got some questions? Here are the fucking answers")
-
-def signup(request):
-    return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
-
 @login_required
 def profile_page(request, matricNo):
-    member = Student.objects.filter(matricNo = matricNo)
+    context_dict = {}
+    try:
+        context_dict['fullname'] = member.get_fullname()
+        context_dict['matricNo'] = member.matricNo
+        context_dict['degree'] = member.degree
+        context_dict['societies'] = Society.objects.filter(member = matricNo)
+        context_dict['memberships'] = len(list(memberships))
+        context_dict['events'] = Event.objects.filter(attended_by = matricNo)
+        context_dict['picture'] = member.picture
+    except:
+        context_dict['fullname'] = None
+        context_dict['matricNo'] = None
+        context_dict['degree'] = None
+        context_dict['societies'] = None
+        context_dict['memberships'] = None
+        context_dict['events'] = None
+        context_dict['picture'] = None
     
-    if member.user.is_authenticated():
-        fullname = member.get_fullname()
-        matricNo = member.matricNo
-        degree = member.degree
-        memberships = Society.objects.filter(member = matricNo)
-        membership_count = len(list(memberships))
-        events = Event.objects.filter(attended_by = matricNo)
-        picture = member.picture
-
-    return render(request, "societly/profile.html", {
-        'matricNo': matricNo,
-        'fullname': fullname,
-        'degree': degree,
-        'memberships': membership_count,
-        'societies': memberships,
-        'events': events,
-        'picture': picture
-    })
+    return render(request, "societly/profile.html", context = context_dict)
