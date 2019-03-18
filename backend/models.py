@@ -117,3 +117,8 @@ class Membership(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.member, self.society)
+<<<<<<< HEAD
+=======
+
+# Get some information about intermediate models on the Django website
+>>>>>>> master
