@@ -37,10 +37,10 @@ class Student(models.Model):
         return self.user.email
 
     def get_fullname(self, user):
-        return user.first_name + " " user.last_name
+        return user.first_name + " " + user.last_name
 
     def __str__(self):
-        return self. matricNo
+        return self.matricNo
 
 
 class Society(models.Model):
@@ -120,8 +120,3 @@ class Membership(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.member, self.society)
-<<<<<<< HEAD
-=======
-
-# Get some information about intermediate models on the Django website
->>>>>>> master

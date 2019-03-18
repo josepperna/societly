@@ -65,8 +65,6 @@ class ReviewForm(forms.ModelForm):
 
 
 
-<<<<<<< HEAD
-=======
         model = User
         fields = ('username', 'email', 'password')
 
@@ -90,4 +88,3 @@ class MemberForm(forms.ModelForm):
 
         model = Student
         fields = ('matricNo', 'picture', 'year', 'degree',)
->>>>>>> master

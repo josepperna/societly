@@ -92,8 +92,6 @@ def faq(request):
 
 def signup(request):
     return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
-<<<<<<< HEAD
-=======
 
 @login_required
 def profile_page(request, matricNo):
@@ -117,4 +115,3 @@ def profile_page(request, matricNo):
         'events': events,
         'picture': picture
     })
->>>>>>> master
