@@ -95,23 +95,22 @@ def signup(request):
 
 @login_required
 def profile_page(request, matricNo):
-    member = Student.objects.filter(matricNo = matricNo)
+    context_dict = {}
+    try:
+        context_dict['fullname'] = member.get_fullname()
+        context_dict['matricNo'] = member.matricNo
+        context_dict['degree'] = member.degree
+        context_dict['societies'] = Society.objects.filter(member = matricNo)
+        context_dict['memberships'] = len(list(memberships))
+        context_dict['events'] = Event.objects.filter(attended_by = matricNo)
+        context_dict['picture'] = member.picture
+    except:
+        context_dict['fullname'] = None
+        context_dict['matricNo'] = None
+        context_dict['degree'] = None
+        context_dict['societies'] = None
+        context_dict['memberships'] = None
+        context_dict['events'] = None
+        context_dict['picture'] = None
     
-    if member.user.is_authenticated():
-        fullname = member.get_fullname()
-        matricNo = member.matricNo
-        degree = member.degree
-        memberships = Society.objects.filter(member = matricNo)
-        membership_count = len(list(memberships))
-        events = Event.objects.filter(attended_by = matricNo)
-        picture = member.picture
-
-    return render(request, "societly/profile.html", {
-        'matricNo': matricNo,
-        'fullname': fullname,
-        'degree': degree,
-        'memberships': membership_count,
-        'societies': memberships,
-        'events': events,
-        'picture': picture
-    })
+    return render(request, "societly/profile.html", context = context_dict)
