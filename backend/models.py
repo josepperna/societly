@@ -36,6 +36,9 @@ class Student(models.Model):
     def get_email(self):
         return self.user.email
 
+    def get_fullname(self, user):
+        return user.first_name + " " user.last_name
+
     def __str__(self):
         return self. matricNo
 
