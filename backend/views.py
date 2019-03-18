@@ -55,17 +55,6 @@ def log_in_form(request):
                 
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
-    
-
-
-def profile(request):
-	societies = Society.objects.all()[:3]
-	events = Event.objects.all()[:3]
-	print(societies)
-	print(events)
-	student = request.user.get_username()
-	context_dict =  {'societies':societies,'events':events, 'student' : student}
-	return render(request, "societly/profile.html",context=context_dict) 
 
 @login_required
 def society(request,  society_name_slug):
@@ -79,19 +68,6 @@ def society(request,  society_name_slug):
         context_dict['society'] = None
         context_dict['events'] = None
     return render(request, "societly/society.html", context = context_dict)
-
-    
-def about_us(request):
-    return HttpResponse("Hello again, this is the fucking about us page")
-
-def contact_us(request):
-    return HttpResponse("Hello again bitch, this is the fucking contact us page")
-
-def faq(request):
-    return HttpResponse("Got some questions? Here are the fucking answers")
-
-def signup(request):
-    return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
 
 @login_required
 def profile_page(request, matricNo):
