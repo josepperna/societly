@@ -7,9 +7,9 @@
 <body>
     <div id="box">
         
-        <form action="userlogin/" method="post">
+        <form action="{%url 'login'%}" method="POST">
             {%csrf_token%}
-            {{form}}
+            {{form.as_p}}
             <input type="submit" value= "Submit">
         </form>
     

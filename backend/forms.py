@@ -3,14 +3,26 @@ from .models import Student, Society, Event, Review, Membership
 from django.contrib.auth.models import User
 
 
-class LogInForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
+	password = forms.CharField(widget=forms.PasswordInput())
 	
 	class Meta:
+		model = User
+		fields = ('username','email','password')
+
+class LogInForm(forms.ModelForm):
+	password = forms.CharField(widget=forms.PasswordInput())	
+	class Meta:
 		
-		model = Student
+		model = User
 		fields = ('username','password')
 	
+
+class StudentForm(forms.ModelForm):
 	
+    class Meta:
+        model = Student
+        fields = ('matricNo', 'picture', 'year', 'degree')
 	
 class SocietyForm(forms.ModelForm):
 
@@ -53,8 +65,3 @@ class ReviewForm(forms.ModelForm):
 
 
 
-class MemberForm(forms.ModelForm):
-	
-    class Meta:
-        model = Student
-        fields = ('matricNo', 'username', 'password', 'picture', 'year', 'degree')

@@ -4,35 +4,59 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import Student, Society, Event, Review, Membership 
-from .forms import LogInForm
+from .forms import LogInForm,UserForm,StudentForm
 from django.http import JsonResponse
 
 
 # Create your views here.
 def index(request):
     return render(request, "societly/home.html") 
-
+    
+def register(request):
+    
+    if request.method == 'POST':
+    
+        user_form = UserForm(data = request.POST)
+        student_form = StudentForm(data = request.POST)
+        
+        if user_form.is_valid() and student_form.is_valid():
+            user= user_form.save()
+            user.set_password(user.password)
+            user.save()
+            
+            student = student_form.save(commit=False)
+            student.user = user
+            
+            if 'picture' in request.FILES:
+                student.picture = request.FILES['picture']
+            
+            student.save()
+            
+            return log_in_form(request)
+        
+    else:
+         user_form = UserForm()
+         student_form = StudentForm()
+    
+    return render(request, 'socielty/register.html', {'user_form':user_form,'student_form':student_form})
+    
 def log_in_form(request):
 
-    print("entered")
     if request.method == "POST":
-        print("post")
         form = LogInForm(request.POST)
-        print(form.is_valid())
-        if form.is_valid():
-            print("valid form")
-            username = form.cleaned_data['username']			
-            password = form.cleaned_data['password']
-            user = authenticate(username=username,password=password)
+
+        username = request.POST.get('username')			
+        password = request.POST.get('password')		
+        user = authenticate(username=username,password=password)
 			
-            if user:
-                print("access: ",user)
+        if user:
                 login(request,user)
                 return HttpResponseRedirect(reverse('profile'))
                 
-    print("reload")
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
+    
+
 
 def profile(request):
 	societies = Society.objects.all()[:3]
