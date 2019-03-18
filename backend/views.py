@@ -19,3 +19,26 @@ def faq(request):
 
 def signup(request):
     return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
+
+@login_required
+def profile_page(request, matricNo):
+    member = Student.objects.filter(matricNo = matricNo)
+    
+    if member.user.is_authenticated():
+        fullname = member.get_fullname()
+        matricNo = member.matricNo
+        degree = member.degree
+        memberships = Society.objects.filter(member = matricNo)
+        membership_count = len(list(memberships))
+        events = Event.objects.filter(attended_by = matricNo)
+        picture = member.picture
+
+    return render(request, "societly/profile.html", {
+        'matricNo': matricNo,
+        'fullname': fullname,
+        'degree': degree,
+        'memberships': membership_count,
+        'societies': memberships,
+        'events': events,
+        'picture': picture
+    })
