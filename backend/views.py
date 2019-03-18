@@ -48,7 +48,6 @@ def log_in_form(request):
         username = request.POST.get('username')			
         password = request.POST.get('password')		
         user = authenticate(username=username,password=password)
-			
         if user:
                 login(request,user)
                 return HttpResponseRedirect(reverse('profile'))
@@ -92,8 +91,6 @@ def faq(request):
 
 def signup(request):
     return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
-<<<<<<< HEAD
-=======
 
 @login_required
 def profile_page(request, matricNo):
@@ -117,4 +114,4 @@ def profile_page(request, matricNo):
         'events': events,
         'picture': picture
     })
->>>>>>> master
+

@@ -64,9 +64,6 @@ class ReviewForm(forms.ModelForm):
         exclude = ('event', 'made_by')
 
 
-
-<<<<<<< HEAD
-=======
         model = User
         fields = ('username', 'email', 'password')
 
@@ -90,4 +87,3 @@ class MemberForm(forms.ModelForm):
 
         model = Student
         fields = ('matricNo', 'picture', 'year', 'degree',)
->>>>>>> master
