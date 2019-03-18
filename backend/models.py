@@ -1,11 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import User,AbstractUser
+from django.contrib.auth.models import User
 
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.template.defaultfilters import slugify
 
 # Create your models here.
-class Student(AbstractUser):
+
+	
+	
+class Student(models.Model):
 
     YEAR = (
         ('1', 'Freshman'),
@@ -16,9 +19,8 @@ class Student(AbstractUser):
     )
 
 
+    user = models.OneToOneField(User, null=True)
     matricNo = models.CharField(max_length = 10, unique = True, primary_key = True)
-    username = models.CharField(unique = True, max_length = 20)
-    password = models.CharField(max_length = 256)
     picture = models.ImageField(blank = True)
     degree = models.CharField(max_length = 50)
     year = models.CharField(choices = YEAR, default = '1', max_length = 1)
@@ -29,13 +31,13 @@ class Student(AbstractUser):
         verbose_name_plural = "students"
 
     def get_username(self):
-        return self.username
+        return self.user.username
     
     def get_email(self):
-        return self.email
+        return self.user.email
 
     def __str__(self):
-        return self.matricNo
+        return self. matricNo
 
 
 class Society(models.Model):
