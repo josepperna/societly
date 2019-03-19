@@ -91,3 +91,12 @@ def profile(request, matricNo):
         context_dict['picture'] = None
     
     return render(request, "societly/profile.html", context = context_dict)
+
+def about_us(request):
+    return render(request, "aboutUs.html")
+
+def contact_us(request):
+    return render(request, "contactUs.html")
+
+def faq(request):
+    return render(request, "faq.html")
