@@ -103,8 +103,8 @@ def event(request, eventId):
         context_dict['time'] = event.time
         context_dict['description'] = event.description
         context_dict['image'] = event.image
-        context_dict['organized_by'] = event.organized_by
-        context_dict['attended_by'] = event.attended_by
+        context_dict['organized_by'] = Society.organized_by.all()
+        context_dict['attended_by'] = Student.attended_by.all()
     except:
         context_dict['name'] = None
         context_dict['date'] = None
@@ -114,6 +114,15 @@ def event(request, eventId):
         context_dict['organized_by'] = None
         context_dict['attended_by'] = None
     return render(request, "societly/event.html", context = context_dict)
+
+def add_membership():
+    return
+
+def add_event():
+    return
+
+def add_review():
+    return
 
 def about_us(request):
     return render(request, "societly/aboutUs.html")
