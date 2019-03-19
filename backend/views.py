@@ -77,7 +77,6 @@ def log_in_form(request):
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
 
-@login_required
 def society(request,  society_name_slug):
     context_dict = {}
     try:
@@ -86,6 +85,7 @@ def society(request,  society_name_slug):
         context_dict['society'] = society
         context_dict['events'] = events
     except:
+        print("exception")
         context_dict['society'] = None
         context_dict['events'] = None
     return render(request, "societly/society.html", context = context_dict)
