@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -38,28 +39,7 @@ def register(request):
          user_form = UserForm()
          student_form = StudentForm()
     
-    return render(request, 'socielty/register.html', {'user_form':user_form,'student_form':student_form})
-
-def profile(request):
-	societies = Society.objects.all()[:3]
-	events = Event.objects.all()[:3]
-	print(societies)
-	print(events)
-	student = request.user.get_username()
-	context_dict =  {'societies':societies,'events':events, 'student' : student}
-	return render(request, "societly/profile.html",context=context_dict) 
-
-def about_us(request):
-    return HttpResponse("Hello again, this is the fucking about us page")
-
-def contact_us(request):
-    return HttpResponse("Hello again bitch, this is the fucking contact us page")
-
-def faq(request):
-    return HttpResponse("Got some questions? Here are the fucking answers")
-
-def signup(request):
-    return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
+    return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
     
 def log_in_form(request):
 
@@ -91,9 +71,10 @@ def society(request,  society_name_slug):
     return render(request, "societly/society.html", context = context_dict)
 
 @login_required
-def profile_page(request, matricNo):
+def profile(request, matricNo):
     context_dict = {}
     try:
+        member = Student.objects.get(matricNo = matricNo)
         context_dict['fullname'] = member.get_fullname()
         context_dict['matricNo'] = member.matricNo
         context_dict['degree'] = member.degree
@@ -111,3 +92,47 @@ def profile_page(request, matricNo):
         context_dict['picture'] = None
     
     return render(request, "societly/profile.html", context = context_dict)
+
+@login_required
+def event(request, eventId):
+    context_dict = {}
+    try:
+        event = Event.objects.get(id = eventId)
+        context_dict['name'] = event.name
+        context_dict['date'] = event.date
+        context_dict['time'] = event.time
+        context_dict['description'] = event.description
+        context_dict['image'] = event.image
+        context_dict['organized_by'] = Society.organized_by.all()
+        context_dict['attended_by'] = Student.attended_by.all()
+    except:
+        context_dict['name'] = None
+        context_dict['date'] = None
+        context_dict['time'] = None
+        context_dict['description'] = None
+        context_dict['image'] = None
+        context_dict['organized_by'] = None
+        context_dict['attended_by'] = None
+    return render(request, "societly/event.html", context = context_dict)
+
+def add_membership():
+    #function and/or view for a student to become a member of a society (possibly include payment)
+    return
+
+def add_event():
+    #function to add an event (by a society or board member of a society), make sure the function works if and only if
+    #membership exists AND it is of type 'Board Member'
+    return
+
+def add_review():
+    #function and/or view to add a review to a certain event (and possibly to a society as well)
+    return
+
+def about_us(request):
+    return render(request, "societly/aboutUs.html")
+
+def contact_us(request):
+    return render(request, "societly/contactUs.html")
+
+def faq(request):
+    return render(request, "societly/faq.html")
