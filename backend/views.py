@@ -39,7 +39,6 @@ def register(request):
          user_form = UserForm()
          student_form = StudentForm()
     
-<<<<<<< HEAD
     return render(request, 'socielty/register.html', {'user_form':user_form,'student_form':student_form})
 
 def profile(request):
@@ -62,9 +61,6 @@ def faq(request):
 
 def signup(request):
     return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
-=======
-    return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
->>>>>>> a2ce690c38992004e6527c1f816b6740483dcdd4
     
 def log_in_form(request):
 
@@ -78,7 +74,6 @@ def log_in_form(request):
         if user:
                 login(request,user)
                 return HttpResponseRedirect(reverse('profile'))
-                
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
 
@@ -153,12 +148,3 @@ def add_event():
 def add_review():
     #function and/or view to add a review to a certain event (and possibly to a society as well)
     return
-
-def about_us(request):
-    return render(request, "societly/aboutUs.html")
-
-def contact_us(request):
-    return render(request, "societly/contactUs.html")
-
-def faq(request):
-    return render(request, "societly/faq.html")
