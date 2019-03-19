@@ -50,13 +50,13 @@ def profile(request):
 	return render(request, "societly/profile.html",context=context_dict) 
 
 def about_us(request):
-    return HttpResponse("Hello again, this is the fucking about us page")
+    return render(request, "societly/about-us.html")
 
 def contact_us(request):
-    return HttpResponse("Hello again bitch, this is the fucking contact us page")
+    return render(request, "societly/contact-us.html")
 
 def faq(request):
-    return HttpResponse("Got some questions? Here are the fucking answers")
+    return render(request, "societly/faq.html")
 
 def signup(request):
     return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
@@ -77,7 +77,6 @@ def log_in_form(request):
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
 
-@login_required
 def society(request,  society_name_slug):
     context_dict = {}
     try:
@@ -85,6 +84,7 @@ def society(request,  society_name_slug):
         events = Event.objects.get(organized_by = society.name) 
         context_dict['society'] = society
         context_dict['events'] = events
+        print(society)
     except:
         context_dict['society'] = None
         context_dict['events'] = None
