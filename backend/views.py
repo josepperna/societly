@@ -39,7 +39,28 @@ def register(request):
          user_form = UserForm()
          student_form = StudentForm()
     
-    return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
+    return render(request, 'socielty/register.html', {'user_form':user_form,'student_form':student_form})
+
+def profile(request):
+	societies = Society.objects.all()[:3]
+	events = Event.objects.all()[:3]
+	print(societies)
+	print(events)
+	student = request.user.get_username()
+	context_dict =  {'societies':societies,'events':events, 'student' : student}
+	return render(request, "societly/profile.html",context=context_dict) 
+
+def about_us(request):
+    return render(request, "societly/about-us.html")
+
+def contact_us(request):
+    return render(request, "societly/contact-us.html")
+
+def faq(request):
+    return render(request, "societly/faq.html")
+
+def signup(request):
+    return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
     
 def log_in_form(request):
 
@@ -53,11 +74,9 @@ def log_in_form(request):
         if user:
                 login(request,user)
                 return HttpResponseRedirect(reverse('profile'))
-                
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
 
-@login_required
 def society(request,  society_name_slug):
     context_dict = {}
     try:
@@ -65,7 +84,9 @@ def society(request,  society_name_slug):
         events = Event.objects.get(organized_by = society.name) 
         context_dict['society'] = society
         context_dict['events'] = events
+        print(society)
     except:
+        print("exception")
         context_dict['society'] = None
         context_dict['events'] = None
     return render(request, "societly/society.html", context = context_dict)
@@ -127,12 +148,3 @@ def add_event(request, matricNo):
 def add_review(request, matricNo, eventId):
     #function and/or view to add a review to a certain event (and possibly to a society as well)
     return
-
-def about_us(request):
-    return render(request, "societly/aboutUs.html")
-
-def contact_us(request):
-    return render(request, "societly/contactUs.html")
-
-def faq(request):
-    return render(request, "societly/faq.html")
