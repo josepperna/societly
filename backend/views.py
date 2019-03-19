@@ -41,14 +41,14 @@ def register(request):
     
     return render(request, 'socielty/register.html', {'user_form':user_form,'student_form':student_form})
 
-def profile(request):
-	societies = Society.objects.all()[:3]
-	events = Event.objects.all()[:3]
-	print(societies)
-	print(events)
-	student = request.user.get_username()
-	context_dict =  {'societies':societies,'events':events, 'student' : student}
-	return render(request, "societly/profile.html",context=context_dict) 
+# def profile(request):
+# 	societies = Society.objects.all()[:3]
+# 	events = Event.objects.all()[:3]
+# 	print(societies)
+# 	print(events)
+# 	student = request.user.get_username()
+# 	context_dict =  {'societies':societies,'events':events, 'student' : student}
+# 	return render(request, "societly/profile.html",context=context_dict) 
 
 def about_us(request):
     return render(request, "societly/about-us.html")
@@ -63,17 +63,14 @@ def signup(request):
     return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
     
 def log_in_form(request):
-
     if request.method == "POST":
-        form = LogInForm(request.POST)
-
         username = request.POST.get('username')			
         password = request.POST.get('password')		
-        user = authenticate(username=username,password=password)
-			
+        user = authenticate(username=username,password=password)	
         if user:
                 login(request,user)
-                return HttpResponseRedirect(reverse('profile'))
+                matricNo = Student.objects.filter(user=user)[0].matricNo
+                return HttpResponseRedirect(reverse('profile', args=[matricNo]))
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
 
@@ -95,13 +92,18 @@ def society(request,  society_name_slug):
 def profile(request, matricNo):
     context_dict = {}
     try:
+
         member = Student.objects.get(matricNo = matricNo)
-        context_dict['fullname'] = member.get_fullname()
+        context_dict['fullname'] = member.get_fullname(request.user)
         context_dict['matricNo'] = member.matricNo
         context_dict['degree'] = member.degree
-        context_dict['societies'] = Society.objects.filter(member = matricNo)
-        context_dict['memberships'] = len(list(memberships))
-        context_dict['events'] = Event.objects.filter(attended_by = matricNo)
+        #context_dict['societies'] = Society.objects.filter(member = matricNo)
+        #context_dict['memberships'] = len(list(memberships))
+        #context_dict['events'] = Event.objects.filter(attended_by = matricNo)
+        #Set to nono because db is not populated with events
+        context_dict['societies'] = None
+        context_dict['memberships'] = None
+        context_dict['events'] = None
         context_dict['picture'] = member.picture
     except:
         context_dict['fullname'] = None
@@ -148,3 +150,7 @@ def add_event():
 def add_review():
     #function and/or view to add a review to a certain event (and possibly to a society as well)
     return
+@login_required 
+def user_logout(request): 
+    logout(request) 
+    return HttpResponseRedirect(reverse('index'))
