@@ -39,16 +39,7 @@ def register(request):
          user_form = UserForm()
          student_form = StudentForm()
     
-    return render(request, 'socielty/register.html', {'user_form':user_form,'student_form':student_form})
-
-def profile(request):
-	societies = Society.objects.all()[:3]
-	events = Event.objects.all()[:3]
-	print(societies)
-	print(events)
-	student = request.user.get_username()
-	context_dict =  {'societies':societies,'events':events, 'student' : student}
-	return render(request, "societly/profile.html",context=context_dict) 
+    return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
 
 def about_us(request):
     return render(request, "societly/about-us.html")
@@ -58,9 +49,6 @@ def contact_us(request):
 
 def faq(request):
     return render(request, "societly/faq.html")
-
-def signup(request):
-    return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
     
 def log_in_form(request):
 
