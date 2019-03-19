@@ -120,3 +120,5 @@ class Membership(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.member, self.society)
+
+    

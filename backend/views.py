@@ -39,16 +39,7 @@ def register(request):
          user_form = UserForm()
          student_form = StudentForm()
     
-    return render(request, 'socielty/register.html', {'user_form':user_form,'student_form':student_form})
-
-def profile(request):
-	societies = Society.objects.all()[:3]
-	events = Event.objects.all()[:3]
-	print(societies)
-	print(events)
-	student = request.user.get_username()
-	context_dict =  {'societies':societies,'events':events, 'student' : student}
-	return render(request, "societly/profile.html",context=context_dict) 
+    return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
 
 def about_us(request):
     return render(request, "societly/about-us.html")
@@ -58,9 +49,6 @@ def contact_us(request):
 
 def faq(request):
     return render(request, "societly/faq.html")
-
-def signup(request):
-    return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
     
 def log_in_form(request):
 
@@ -135,15 +123,15 @@ def event(request, eventId):
         context_dict['attended_by'] = None
     return render(request, "societly/event.html", context = context_dict)
 
-def add_membership():
+def add_membership(request, matricNo, society_name_slug):
     #function and/or view for a student to become a member of a society (possibly include payment)
     return
 
-def add_event():
-    #function to add an event (by a society or board member of a society), make sure the function works if and only if
+def add_event(request, matricNo):
+    #function to add an event (by a society/board member of a society), make sure the function works if and only if
     #membership exists AND it is of type 'Board Member'
     return
 
-def add_review():
+def add_review(request, matricNo, eventId):
     #function and/or view to add a review to a certain event (and possibly to a society as well)
     return
