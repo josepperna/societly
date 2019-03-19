@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -38,7 +39,7 @@ def register(request):
          user_form = UserForm()
          student_form = StudentForm()
     
-    return render(request, 'socielty/register.html', {'user_form':user_form,'student_form':student_form})
+    return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
     
 def log_in_form(request):
 
@@ -92,11 +93,33 @@ def profile(request, matricNo):
     
     return render(request, "societly/profile.html", context = context_dict)
 
+@login_required
+def event(request, eventId):
+    context_dict = {}
+    try:
+        event = Event.objects.get(id = eventId)
+        context_dict['name'] = event.name
+        context_dict['date'] = event.date
+        context_dict['time'] = event.time
+        context_dict['description'] = event.description
+        context_dict['image'] = event.image
+        context_dict['organized_by'] = event.organized_by
+        context_dict['attended_by'] = event.attended_by
+    except:
+        context_dict['name'] = None
+        context_dict['date'] = None
+        context_dict['time'] = None
+        context_dict['description'] = None
+        context_dict['image'] = None
+        context_dict['organized_by'] = None
+        context_dict['attended_by'] = None
+    return render(request, "societly/event.html", context = context_dict)
+
 def about_us(request):
-    return render(request, "aboutUs.html")
+    return render(request, "societly/aboutUs.html")
 
 def contact_us(request):
-    return render(request, "contactUs.html")
+    return render(request, "societly/contactUs.html")
 
 def faq(request):
-    return render(request, "faq.html")
+    return render(request, "societly/faq.html")
