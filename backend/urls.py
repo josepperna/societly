@@ -12,6 +12,5 @@ urlpatterns = [
     url(r'^faq/', views.faq, name='faq'),
     url(r'^society/(?P<society_name_slug>[\w\-]+)/$', views.society, name='society'),
     #url(r'events/', views.profile, name='events')
-    url(r'<str:matricNo>/', views.profile_page, name='profile-page')
 ]
 
