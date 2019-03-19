@@ -21,7 +21,7 @@
    
 </head>
 
-<body class = "h-100" onload="seeMore()">
+<body class = "h-100 text-light" onload="seeMore()">
    
    <div class ="h-100">
             <nav class="navbar navbar-expand navbar-light bg-white" style ="height:10% !important">
@@ -31,13 +31,15 @@
             <div class=" container-fluid" style ="height:80% !important; background-color:mediumpurple">       
         
                     <div class="row">
-                      <div class="col-3 d-none d-sm-block">
-                        <img src="{{society.image.url}}" alt ="Society image">
+                      <div class="col-3 d-none d-sm-block" style = "margin-top : 10px; ">
+                        <img src="{{society.logo.url}}" alt ="Society image">
                       </div>
-                      <div class="col-8 col-sm-12">
+                      <div class="col-12 col-sm-9">
+                         <div style = "margin-top: 10px"> <h2>{{society.name}}</h2></div>
                          <p class = "description"><p class="description" id = "first"></p><p  class="description" id = "dots"></p>
                             <p class="description" id = "second"></p></p>
-                         <button onclick="showMore()" id = "sbtn">Read more</button>
+                         <button class="btn btn-light" onclick="showMore()" id = "sbtn">Read more</button>
+                         <a class="btn btn-primary" href="" role="button">Subscribe</a>
                         
                       </div>
                     </div>
@@ -63,7 +65,7 @@
 
 
                     <div class="row" style = "margin-top: 15px; float:right; margin-right: 10px;">
-                           <button onclick= moreEvents()>More Events</button>
+                           <button class="btn btn-light" onclick= moreEvents()>More Events</button>
                         </div>
     
                     
@@ -98,11 +100,11 @@
         var text  = "";
         function seeMore(){ 
 
-                text = {{society.description}}//"{% lorem %}";
-                let text1 = text.substring(0,100);
+                text = "{{society.description}}";//"{% lorem %}";
+                let text1 = text.substring(0,400);
                 para[0].innerHTML = text1;
                 para[1].innerHTML = "";
-                if(text.length>100){ 
+                if(text.length>400){ 
                     para[1].innerHTML = "...";
                     but.style.display("inline");
                     }               
