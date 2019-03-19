@@ -61,13 +61,13 @@ def society(request,  society_name_slug):
     context_dict = {}
     try:
         society = Society.objects.get(slug = society_name_slug)
-        events = Event.objects.get(organized_by = society.name) 
+        events = Event.objects.filter(organized_by = society) 
         context_dict['society'] = society
         context_dict['events'] = events
-    except:
-        print("exception")
+    except Exception as e:
         context_dict['society'] = None
         context_dict['events'] = None
+        raise
     return render(request, "societly/society.html", context = context_dict)
 
 @login_required
