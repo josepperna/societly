@@ -115,16 +115,16 @@ def event(request, eventId):
         context_dict['attended_by'] = None
     return render(request, "societly/event.html", context = context_dict)
 
-def add_membership():
+def add_membership(request, matricNo, society_name_slug):
     #function and/or view for a student to become a member of a society (possibly include payment)
     return
 
-def add_event():
-    #function to add an event (by a society or board member of a society), make sure the function works if and only if
+def add_event(request, matricNo):
+    #function to add an event (by a society/board member of a society), make sure the function works if and only if
     #membership exists AND it is of type 'Board Member'
     return
 
-def add_review():
+def add_review(request, matricNo, eventId):
     #function and/or view to add a review to a certain event (and possibly to a society as well)
     return
 
