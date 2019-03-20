@@ -2,3 +2,4 @@
 backend/migrations/
 #ignore .idea
 .idea
+*.pyc
