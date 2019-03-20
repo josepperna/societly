@@ -19,7 +19,7 @@ class Student(models.Model):
 
     user = models.OneToOneField(User, null=True)
     matricNo = models.CharField(max_length = 10, unique = True, primary_key = True)
-    picture = models.ImageField(blank = False)
+    picture = models.ImageField(upload_to = 'student_profile_pictures', null = True, blank = True)
     degree = models.CharField(max_length = 50)
     year = models.CharField(choices = YEAR, default = '1', max_length = 1)
 
@@ -45,7 +45,7 @@ class Society(models.Model):
 
     name = models.CharField(max_length = 128, unique = True)
     description = models.TextField(max_length = 2000)
-    logo = models.ImageField()
+    logo = models.ImageField(upload_to = 'society_profile_pictures', null = True, blank = True)
     email = models.EmailField()
     facebook = models.URLField(blank = True)
     linkedin = models.URLField(blank = True)
@@ -72,7 +72,7 @@ class Event(models.Model):
     date = models.DateField()
     time = models.TimeField()
     description = models.TextField(max_length = 2000)
-    image = models.ImageField(blank = True)
+    image = models.ImageField(upload_to = 'event_pictures', null = True, blank = True)
     organized_by = models.ManyToManyField(Society, related_name = "organized_by")
     attended_by = models.ManyToManyField(Student, related_name = "attended_by", blank = True)
 
