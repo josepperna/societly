@@ -1,23 +1,9 @@
-<!--
-   Profile.html
-   
-   Copyright 2019 Francesco <Francesco@MRLAPTOP>
-   
--->
+{% extends user.is_authenticated|yesno:"societly/base-loged-in.html,societly/base.html" %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" style = "height:100%;width:100%;">
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
+{% load staticfiles %}     
+    {% block body_block %} 
+
+
   <script>
 
     soci = document.getElementsByClassName("societies").children;
@@ -44,23 +30,17 @@ for (var i = 0; i <even.length; i++) {
 }
 
   </script>
-</head>
-
-<body style = "height:100%; width:100%;">
-    
     <div id = "container" class="container-fluid " style = "height:100%; width:100%; margin-left:0px;">
 
 
         <div class="row  h-100">
             
-                <div id = "left" class="col-3 h-100 d-none d-md-block" style = "background-image: linear-gradient(blue, red); opacity:0.5; text-align:center;" >
-                    
-                        <h2 ><font color = "white">Societly</font></h2>
+                <div id = "left" class="col-3 h-100 d-none d-md-block" style = "background-image: linear-gradient(blue, red); opacity:0.5; text-align:center; margin:0;" >
                         
         
                         <a class="nav-link" href=""><h2  style = "color:white;display:inline-block;">{{fullname}}</h2></a>
                         
-                        <div style = "height:45%; border-radius :50%;
+                        <div style = "height:55%; border-radius :50%;
                         background-image: url('{{picture.url}}');border : 3px solid #bf9de0; "></div>
                         <a class="nav-link" href=""><h4  style = "color:white;text-align:center">{{matricNo}}</h4></a>
                         <a class="nav-link" href=""><h4  style = "color:white;text-align:center">{{degree}}</h4></a>
@@ -68,31 +48,6 @@ for (var i = 0; i <even.length; i++) {
                 </div>
                 
                 <div id = "right" class="col-md-9 h-100 col-12 " style = "padding:0;">
-                     
-                            <nav class="navbar navbar-expand-lg navbar-light bg-light " style = "height:8%;">
-                                  
-                                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                      
-                                    <ul class="navbar-nav ml-auto">
-                                      <li class="nav-item active ml-auto">
-                                        <a class="nav-link ml-auto" href="">Home<span class="sr-only">(current)</span></a>
-                                      </li>
-                                      
-                                      <li class="nav-item " >
-                                        <a class="nav-link" href="">Societies</a>
-                                      </li>
-
-                                      <li class="nav-item ">
-                                        <a class="nav-link" href="">Events</a>
-                                      </li>
-
-                                      <li class="nav-item ">
-                                        <a class="nav-link" href="">{{fullname}}</a>
-                                      </li>
-                                    </ul>
-                                    
-                                </div>
-                            </nav>
                                                       
                             <div class="row" style  = "height:46%; background-color: white; margin:0;"> 
                           
@@ -141,5 +96,5 @@ for (var i = 0; i <even.length; i++) {
 
         </div>
     </div>
-</body>
-</html>
+
+{% endblock %}
