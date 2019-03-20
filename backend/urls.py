@@ -11,16 +11,9 @@ urlpatterns = [
     url(r'^register/', views.register, name='register'),
     url(r'^faq/', views.faq, name='faq'),
     url(r'^society/(?P<society_name_slug>[\w\-]+)/$', views.society, name='society'),
-<<<<<<< HEAD
     url(r'^showallsoc/$', views.show_all_societies, name='all_societies'),
     url(r'^showalleve/$', views.show_all_events, name='all_events'),
     url(r'^showallmysoc/$', views.show_your_societies, name='my_societies'),
     url(r'^showallmyeve/$', views.show_your_events, name='my_events'),
     url(r'^logout/', views.logout, name='logout'),
-=======
-    url(r'^showallsoc/$', views.show_all_societies, name='logout'),
-    url(r'^showalleve/$', views.show_all_events, name='logout'),
-    url(r'^showallmysoc/$', views.show_your_societies, name='logout'),
-    url(r'^showallmyeve/$', views.show_your_events, name='logout'),
->>>>>>> 16e3b57e4e5468f05411df02692b1c53f2e21646
 ]
