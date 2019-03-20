@@ -2,6 +2,38 @@
 
 {% load staticfiles %}     
     {% block body_block %} 
+    <script>
+
+      function fn(){
+          
+      
+          soci = document.getElementsByClassName("societies");
+          even = document.getElementsByClassName("events");
+      
+          for (var i = 0; i < soci.length; i++) {
+               var child = soci[i];
+               var istr = String(i);
+               child.setAttribute("id",istr);
+               $('#'+ istr ).hover(function(){
+                $(this).css("opacity", 1);
+                }, function(){
+                $(this).css("opacity", "0.7");
+              });
+      }
+          for (var i = 0; i <even.length; i++) {
+                  var child = even[i];
+                  var istr = String(i);
+                  child.setAttribute("id",istr);
+                  $('#'+ istr ).hover(function(){
+                    $(this).css("opacity", "1");
+                    }, function(){
+                    $(this).css("opacity", "0.7");
+                  });
+      }}
+     
+  </script>
+    <div onload = "fn()"  id = "container" class="container-fluid " style = "height:100%; width:100%; margin-left:0px; padding: 0">
+
 
     <div id = "container" class="container-fluid " style = "height:100%; width:100%; margin-left:0px;">
 
@@ -31,7 +63,7 @@
                                              
                                               <div class="societies d-none d-sm-block col-3" style = "border : 3px solid #bf9de0; bottom:5%;margin:2%;border-radius :25px;
                                               background-image: url('{{soc.society.logo.url}}'); opacity:0.7;">
-                                              <a href="/society/{{soc.society.name}}">
+                                              <a href="/society/{{soc.society.slug}}">
                                               <h3 style = "position:absolute"><font color="white">{{soc.society.name}} </font> </h3>
                                               </a>
                                               </div>
@@ -69,38 +101,9 @@
         </div>
     </div>
 
+ 
 
 {% endblock %}
 
+
    
-<script>
-
-function fn(){
-    
-
-    soci = document.getElementsByClassName("societies");
-    even = document.getElementsByClassName("events");
-
-    for (var i = 0; i < soci.length; i++) {
-         var child = soci[i];
-         var istr = String(i);
-         child.setAttribute("id",istr);
-         $('#'+ istr ).hover(function(){
-          $(this).css("opacity", 1);
-          }, function(){
-          $(this).css("opacity", "0.7");
-        });
-}
-    for (var i = 0; i <even.length; i++) {
-            var child = even[i];
-            var istr = String(i);
-            child.setAttribute("id",istr);
-            $('#'+ istr ).hover(function(){
-              $(this).css("opacity", "1");
-              }, function(){
-              $(this).css("opacity", "0.7");
-            });
-}}
-
-  </script>
-

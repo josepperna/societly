@@ -106,11 +106,6 @@ def profile(request):
 def about_us(request):
     return render(request, "societly/about-us.html")
 
-@login_required
-def user_logout(request):
-    logout(request)
-    return render(request, "societly/home.html")
-
 def contact_us(request):
     return render(request, "societly/contact-us.html")
 
@@ -137,11 +132,20 @@ def society(request, society_name_slug):
         events = Event.objects.filter(organized_by = society)
         context_dict['society'] = society
         context_dict['events'] = events
+        if request.user.is_authenticated:
+            member = Student.objects.get(user=request.user)
+            if len(Membership.objects.filter(member = member, society = society)) != 0:
+                context_dict['member'] = True
+            else:
+                context_dict['member'] = False
+        else:
+            context_dict['member'] = False
+
     except Exception as e:
         context_dict['society'] = None
         context_dict['events'] = None
-        raise
-    return render(request, "societly/society_prev_version.html", context = context_dict)
+        context_dict['member'] = False
+    return render(request, "societly/society.html", context = context_dict)
 
 @login_required
 def event(request, eventId):
@@ -211,3 +215,13 @@ def subscribe(request, society_slug_name):
 def user_logout(request): 
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+@login_required
+def subscribe_to_society(request):
+    society = None
+    print("aaaa")
+    if request.method == 'GET':
+        society = request.GET['society']
+        if society:
+            Membership.obejcts.get_or_create(society=society, member=Student.objects.get(user=request.user))
+    return HttpResponse()

@@ -7,10 +7,10 @@
         .description {display:inline;}
         </style>
 
-            <div class=" container-fluid"  onload="seeMore()" style ="background-color:mediumpurple; height: 100%">       
-        
+            <div class=" container-fluid"  onload="seeMore()" style ="background-color:mediumpurple; height: 100%; padding: 0">       
+                <div style = " margin: 10px;">
                     <div class="row">
-                      <div class="d-none d-sm-block" style = "margin-top : 10px; ">
+                      <div class="d-none d-sm-block" >
                         <img src="{{society.logo.url}}" alt ="Society image">
                       </div>
                       <div class="col-12 col-sm-9">
@@ -18,7 +18,15 @@
                          <p class = "description"><p class="description" id = "first"></p><p  class="description" id = "dots"></p>
                             <p class="description" id = "second"></p></p>
                          <button class="btn btn-light" onclick="showMore()" id = "sbtn">Read more</button>
-                         <a class="btn btn-primary" href="{%url 'register'%}" role="button">Subscribe</a>
+                         {% if not user.is_authenticated %}
+                            <a class="btn btn-primary" href="{%url 'register'%}" role="button">Register to subscribe</a>
+                         {% elif member %}
+                            <a id="unsubscribe" class="btn btn-primary" role="button" data-society="{{society}}">Unsubscribe</a>
+                            <a id="subscribe" class="btn btn-primary" role="button" data-society="{{society}}" style="visibility:collapse">Subscribe</a>
+                         {% else %}
+                            <a id="unsubscribe" class="btn btn-primary" role="button" data-society="{{society}}" style="visibility:collapse">Unsubscribe</a>
+                            <a id="subscribe" class="btn btn-primary" role="button" data-society="{{society}}">Subscribe</a>
+                         {% endif %}
                         
                       </div>
                     </div>
@@ -47,7 +55,7 @@
                            <button class="btn btn-light" onclick= moreEvents()>More Events</button>
                         </div>
             </div>
-                  
+          </div>  
 <script>
 
 
