@@ -136,8 +136,8 @@ def log_in_form(request):
 def society(request, society_name_slug):
     context_dict = {}
     try:
-        society = Society.objects.get(slug = society_name_slug)
-        events = Event.objects.filter(organized_by = society.id)
+        society = Society.objects.filter(slug = society_name_slug).first()
+        events = Event.objects.filter(organized_by = society)
         context_dict['society'] = society
         context_dict['events'] = events
     except Exception as e:
