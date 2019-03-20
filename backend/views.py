@@ -14,35 +14,32 @@ def index(request):
     else:
         return render(request, "societly/home.html")
 
-def show_all_societies(request){
+def show_all_societies(request):
     societies = Society.object.order_by('date')
     context_dict = {'societies': societies}
     return render(request, 'societly/Show_all_societies.html', context_dict)
-}
 
 @login_required
-def show_your_societies(request){
+def show_your_societies(request):
     student = Student.objects.filter(user = request.user)
     societies = student.society_set.all()
     context_dict = {'societies': societies}
     print(societies)
     return render(request, 'societly/Show_all_societies.html', context_dict)
-}
 
-def show_all_events(request){
+def show_all_events(request):
     events = Event.object.order_by('date')
     context_dict = {'events': events}
     return render(request, 'societly/Show_all_events.html', context_dict)
-}
+
 
 @login_required
-def show_your_events(request){
+def show_your_events(request):
     student = Student.objects.filter(user = request.user)
     events = student.event_set.all()
     context_dict = {'events': events}
     print(events)
     return render(request, 'societly/Show_all_events.html', context_dict)
-}
 
 
 def register(request):
