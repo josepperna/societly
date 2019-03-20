@@ -1,1 +1,8 @@
+#ignore db.sqlite3
 db.sqlite3
+#ignore migrations
+backend/migrations/
+#ignore .idea
+.idea
+#ignore all the .pyc files
+*.pyc

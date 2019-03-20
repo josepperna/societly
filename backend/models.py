@@ -6,8 +6,8 @@ from django.template.defaultfilters import slugify
 
 # Create your models here.
 
-	
-	
+
+
 class Student(models.Model):
 
     YEAR = (
@@ -32,7 +32,7 @@ class Student(models.Model):
 
     def get_username(self):
         return self.user.username
-    
+
     def get_email(self):
         return self.user.email
 
@@ -121,4 +121,4 @@ class Membership(models.Model):
     def __str__(self):
         return "{} {}".format(self.member, self.society)
 
-    
+# Get some information about intermediate models on the Django website

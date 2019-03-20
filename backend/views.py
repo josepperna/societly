@@ -4,41 +4,41 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .models import Student, Society, Event, Review, Membership 
+from .models import Student, Society, Event, Review, Membership
 from .forms import LogInForm,UserForm,StudentForm
 from django.http import JsonResponse
 
 
 # Create your views here.
 def index(request):
-    return render(request, "societly/home.html") 
-    
+    return render(request, "societly/home.html")
+
 def register(request):
-    
+
     if request.method == 'POST':
-    
+
         user_form = UserForm(data = request.POST)
         student_form = StudentForm(data = request.POST)
-        
+
         if user_form.is_valid() and student_form.is_valid():
             user= user_form.save()
             user.set_password(user.password)
             user.save()
-            
+
             student = student_form.save(commit=False)
             student.user = user
-            
+
             if 'picture' in request.FILES:
                 student.picture = request.FILES['picture']
-            
+
             student.save()
-            
+
             return log_in_form(request)
-        
+
     else:
          user_form = UserForm()
          student_form = StudentForm()
-    
+
     return render(request, 'socielty/register.html', {'user_form':user_form,'student_form':student_form})
 
 # def profile(request):
@@ -48,7 +48,7 @@ def register(request):
 # 	print(events)
 # 	student = request.user.get_username()
 # 	context_dict =  {'societies':societies,'events':events, 'student' : student}
-# 	return render(request, "societly/profile.html",context=context_dict) 
+# 	return render(request, "societly/profile.html",context=context_dict)
 
 def about_us(request):
     return render(request, "societly/about-us.html")
@@ -58,12 +58,12 @@ def contact_us(request):
 
 def faq(request):
     return render(request, "societly/faq.html")
-    
+
 def log_in_form(request):
     if request.method == "POST":
-        username = request.POST.get('username')			
-        password = request.POST.get('password')		
-        user = authenticate(username=username,password=password)	
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username,password=password)
         if user:
                 login(request,user)
                 matricNo = Student.objects.filter(user=user)[0].matricNo
@@ -75,7 +75,7 @@ def society(request,  society_name_slug):
     context_dict = {}
     try:
         society = Society.objects.get(slug = society_name_slug)
-        events = Event.objects.filter(organized_by = society) 
+        events = Event.objects.filter(organized_by = society)
         context_dict['society'] = society
         context_dict['events'] = events
     except Exception as e:
@@ -109,7 +109,7 @@ def profile(request, matricNo):
         context_dict['memberships'] = None
         context_dict['events'] = None
         context_dict['picture'] = None
-    
+
     return render(request, "societly/profile.html", context = context_dict)
 
 @login_required
@@ -134,19 +134,20 @@ def event(request, eventId):
         context_dict['attended_by'] = None
     return render(request, "societly/event.html", context = context_dict)
 
-def add_membership(request, matricNo, society_name_slug):
-    #function and/or view for a student to become a member of a society (possibly include payment)
-    return
+def signup(request):
+    return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
 
 def add_event(request, matricNo):
     #function to add an event (by a society/board member of a society), make sure the function works if and only if
     #membership exists AND it is of type 'Board Member'
     return
 
-def add_review(request, matricNo, eventId):
-    #function and/or view to add a review to a certain event (and possibly to a society as well)
-    return
-@login_required 
-def user_logout(request): 
-    logout(request) 
-    return HttpResponseRedirect(reverse('index'))
+    return render(request, "societly/profile.html", {
+        'matricNo': matricNo,
+        'fullname': fullname,
+        'degree': degree,
+        'memberships': membership_count,
+        'societies': memberships,
+        'events': events,
+        'picture': picture
+    })

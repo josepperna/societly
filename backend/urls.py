@@ -3,7 +3,7 @@ from backend import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    #url(r'^login/', views.index, name='login'),
+    url(r'^login/', views.index, name='login'),
     url(r'^about-us/', views.about_us, name='about-us'),
     url(r'^profile/(?P<matricNo>[\w\-]+)/$', views.profile, name='profile'),
     url(r'^userlogin/',views.log_in_form,name = 'login'),
@@ -13,6 +13,6 @@ urlpatterns = [
     url(r'^society/(?P<society_name_slug>[\w\-]+)/$', views.society, name='society'),
     url(r'^logout/$', views.user_logout, name='logout'),
 
-    #url(r'events/', views.profile, name='events')
+    url(r'about-us/', views.about_us, name='about-us'),
+    url(r'<str:matricNo>/', views.profile_page, name='profile-page')
 ]
-

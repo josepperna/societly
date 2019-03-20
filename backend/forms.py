@@ -5,25 +5,25 @@ from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
-	
+
 	class Meta:
 		model = User
 		fields = ('username','email','password')
 
 class LogInForm(forms.ModelForm):
-	password = forms.CharField(widget=forms.PasswordInput())	
+	password = forms.CharField(widget=forms.PasswordInput())
 	class Meta:
-		
+
 		model = User
 		fields = ('username','password')
-	
+
 
 class StudentForm(forms.ModelForm):
-	
+
     class Meta:
         model = Student
         fields = ('matricNo', 'picture', 'year', 'degree')
-	
+
 class SocietyForm(forms.ModelForm):
 
     name = forms.CharField(max_length = 128, help_text = "Please enter the name of the society")
@@ -35,7 +35,7 @@ class SocietyForm(forms.ModelForm):
     instagram = forms.URLField(widget = forms.URLInput)
 
     class Meta:
-        
+
         model = Society
         exclude = ('members',)
 
@@ -62,7 +62,6 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         exclude = ('event', 'made_by')
-
 
 
         model = User
