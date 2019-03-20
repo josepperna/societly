@@ -1,22 +1,25 @@
+{% extends 'societly/base.html' %}
+
 <!DOCTYPE html>
 {% load staticfiles %}
+    {% block body_block %}
+    <html>
+    <head>
+        <title>Log In</title>
+    </head>
+    <body>
+        <div id="box" style = "text-align: center">
 
-<html>
-<head>
-    <title>Log In</title>
-</head>
-<body>
-    <div id="box" style = "text-align: center">
-        
-        <form id="login" method="post" action="{% url 'login' %}">
-            {%csrf_token%}
-            {{form.as_p}}
-            <input type="submit" value= "Submit">
-        </form>
-    
-    
-    </div>
-</body>
+            <form id="login" method="post" action="{% url 'login' %}">
+                {%csrf_token%}
+                {{form.as_p}}
+                <input type="submit" value= "Submit">
+            </form>
 
 
-</html>
+        </div>
+    </body>
+
+
+    </html>
+    {% endblock %}

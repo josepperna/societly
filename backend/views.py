@@ -6,8 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import Student, Society, Event, Review, Membership
 from .forms import LogInForm,UserForm,StudentForm
-from django.http import JsonResponse
-
 
 # Create your views here.
 def index(request):
@@ -29,6 +27,7 @@ def register(request):
             student.user = user
 
             if 'picture' in request.FILES:
+                print("yes")
                 student.picture = request.FILES['picture']
 
             student.save()
