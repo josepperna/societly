@@ -85,6 +85,7 @@ def profile(request):
         print(context_dict['societies'])
         # context_dict['memberships'] = len(list(memberships))
         context_dict['events'] = Event.objects.filter(attended_by = member).order_by('-date')[:3]
+        print(context_dict['events'])
         # context_dict['societies'] = None
         context_dict['memberships'] = None
         # context_dict['events'] = None
