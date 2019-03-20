@@ -87,6 +87,9 @@ def contact_us(request):
 def faq(request):
     return render(request, "societly/faq.html")
 
+def societies(request):
+    return render(request, "societly/Show_all_societies.html")
+
 def log_in_form(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -111,7 +114,7 @@ def society(request,  society_name_slug):
         context_dict['society'] = None
         context_dict['events'] = None
         raise
-    return render(request, "societly/society.html", context = context_dict)
+    return render(request, "societly/society_prev_version.html", context = context_dict)
 
 @login_required
 def event(request, eventId):
