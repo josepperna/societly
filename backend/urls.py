@@ -6,11 +6,10 @@ urlpatterns = [
     url(r'^login/', views.index, name='login'),
     url(r'^about-us/', views.about_us, name='about-us'),
     url(r'^profile/', views.profile, name='profile'),
-    url(r'^userlogin/',views.log_in_form,name = 'logInForm'),
+    url(r'^userlogin/',views.log_in_form,name = 'login'),
     url(r'^contact-us/', views.contact_us, name='contact_us'),
     url(r'^register/', views.register, name='register'),
     url(r'^faq/', views.faq, name='faq'),
     url(r'^society/(?P<society_name_slug>[\w\-]+)/$', views.society, name='society'),
-    #url(r'events/', views.profile, name='events')
+    url(r'^logout/$', views.user_logout, name='logout'),
 ]
-
