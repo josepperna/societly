@@ -24,12 +24,12 @@
 <body  class = "h-100">
     <div class ="h-100">
         <nav class="navbar navbar-expand-lg navbar-light bg-light " style = "height:10% !important;">
-                                  
+              <a class="navbar-brand " href="/">Societly</a>   
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item active ml-auto">
-                  <a class="nav-link ml-auto" href="">Home<span class="sr-only">(current)</span></a>
+                  <a class="nav-link ml-auto" href="/">Home<span class="sr-only">(current)</span></a>
                 </li>
                 
                 <li class="nav-item " >
@@ -41,21 +41,18 @@
                 </li>
 
                 <li class="nav-item ">
-                  <a class="nav-link" href="">{{student.username}}</a>
+                  <a class="nav-link" href="/profile/">{{user.username}}</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="/logout/">Logout</a>
                   </li>
-                <li class="nav-item ">
-                  <img src="{{student.image.url}}" style = "width:90%; height:90%; border-radius:50%; ">
-                </li>
               </ul>
             </div>
 
           
       </nav>
 
-    <div class=" container-fluid no-gutters" style ="height:80% !important;">  
+    <div class=" container-fluid no-gutters" style ="height:80%; width:100%; !important; padding:0">  
         {% block body_block %}
         {% endblock %}
     </div>

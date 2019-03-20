@@ -1,9 +1,36 @@
-<!--
-   Profile.html
-   
-   Copyright 2019 Francesco <Francesco@MRLAPTOP>
-   
--->
+{% extends user.is_authenticated|yesno:"societly/base-loged-in.html,societly/base.html" %}
+
+{% load staticfiles %}     
+    {% block body_block %} 
+
+
+  <script>
+
+    soci = document.getElementsByClassName("societies").children;
+    even = document.getElementsByClassName("events").children;
+
+    for (var i = 0; i < soci.length; i++) {
+         var child = soci[i];
+        $(child).hover(function(){
+          $(this).css("opacity", "1");
+          }, function(){
+          $(this).css("opacity", ".7");
+        });
+}
+
+
+for (var i = 0; i <even.length; i++) {
+         var child = even[i];
+        $(child).hover(function(){
+          $(this).css("opacity", "1");
+          }, function(){
+          $(this).css("opacity", ".7");
+        });
+
+}
+
+  </script>
+    <div id = "container" class="container-fluid " style = "height:100%; width:100%; margin-left:0px;">
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -26,14 +53,12 @@
 
         <div class="row  h-100">
             
-                <div id = "left" class="col-3 h-100 d-none d-md-block" style = "background-image: linear-gradient(blue, red); opacity:0.5; text-align:center;" >
-                    
-                        <h2 ><font color = "white">Societly</font></h2>
+                <div id = "left" class="col-3 h-100 d-none d-md-block" style = "background-image: linear-gradient(blue, red); opacity:0.5; text-align:center; margin:0;" >
                         
         
                         <a class="nav-link" href=""><h2  style = "color:white;display:inline-block;">{{fullname}}</h2></a>
                         
-                        <div style = "height:45%; border-radius :50%;
+                        <div style = "height:55%; border-radius :50%;
                         background-image: url('{{picture.url}}');border : 3px solid #bf9de0; "></div>
                         <a class="nav-link" href=""><h4  style = "color:white;text-align:center">{{matricNo}}</h4></a>
                         <a class="nav-link" href=""><h4  style = "color:white;text-align:center">{{degree}}</h4></a>
@@ -41,31 +66,6 @@
                 </div>
                 
                 <div id = "right" class="col-md-9 h-100 col-12 " style = "padding:0;">
-                     
-                            <nav class="navbar navbar-expand-lg navbar-light bg-light " style = "height:8%;">
-                                  
-                                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                      
-                                    <ul class="navbar-nav ml-auto">
-                                      <li class="nav-item active ml-auto">
-                                        <a class="nav-link ml-auto" href="">Home<span class="sr-only">(current)</span></a>
-                                      </li>
-                                      
-                                      <li class="nav-item " >
-                                        <a class="nav-link" href="">Societies</a>
-                                      </li>
-
-                                      <li class="nav-item ">
-                                        <a class="nav-link" href="">Events</a>
-                                      </li>
-
-                                      <li class="nav-item ">
-                                        <a class="nav-link" href="">{{fullname}}</a>
-                                      </li>
-                                    </ul>
-                                    
-                                </div>
-                            </nav>
                                                       
                             <div class="row" style  = "height:46%; background-color: white; margin:0;"> 
                           
@@ -114,6 +114,10 @@
 
         </div>
     </div>
+
+
+{% endblock %}
+
 </body>
 
    
@@ -148,3 +152,5 @@ function fn(){
 
   </script>
 </html>
+
+</div>
