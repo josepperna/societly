@@ -9,7 +9,7 @@ from .forms import LogInForm,UserForm,StudentForm
 
 # Create your views here.
 def index(request):
-    if request.user.is_authenticated:
+    if request.user and request.user.is_authenticated:
         return profile(request)
     else:
         return render(request, "societly/home.html")
