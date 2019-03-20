@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import Student, Society, Event, Review, Membership
-from .forms import LogInForm,UserForm,StudentForm
+from .forms import LogInForm,UserForm,StudentForm, EventForm
+import datetime
 
 # Create your views here.
 def index(request):
@@ -13,6 +14,34 @@ def index(request):
         return profile(request)
     else:
         return render(request, "societly/home.html")
+
+def show_all_societies(request):
+    societies = Society.object.order_by('date')
+    context_dict = {'societies': societies}
+    return render(request, 'societly/Show_all_societies.html', context_dict)
+
+@login_required
+def show_your_societies(request):
+    student = Student.objects.filter(user = request.user)
+    societies = student.society_set.all()
+    context_dict = {'societies': societies}
+    print(societies)
+    return render(request, 'societly/Show_all_societies.html', context_dict)
+
+def show_all_events(request):
+    events = Event.object.order_by('date')
+    context_dict = {'events': events}
+    return render(request, 'societly/Show_all_events.html', context_dict)
+
+
+@login_required
+def show_your_events(request):
+    student = Student.objects.filter(user = request.user)
+    events = student.event_set.all()
+    context_dict = {'events': events}
+    print(events)
+    return render(request, 'societly/Show_all_events.html', context_dict)
+
 
 def register(request):
 
@@ -52,10 +81,11 @@ def profile(request):
         context_dict['fullname'] = member.get_fullname(request.user)
         context_dict['matricNo'] = member.matricNo
         context_dict['degree'] = member.degree
-        context_dict['societies'] =  Membership.objects.filter(member = member)
+        context_dict['societies'] =  Membership.objects.filter(member = member).order_by('-date_joined')[:3]
         print(context_dict['societies'])
         # context_dict['memberships'] = len(list(memberships))
-        context_dict['events'] = Event.objects.filter(attended_by = member)
+        context_dict['events'] = Event.objects.filter(attended_by = member).order_by('-date')[:3]
+        print(context_dict['events'])
         # context_dict['societies'] = None
         context_dict['memberships'] = None
         # context_dict['events'] = None
@@ -82,6 +112,9 @@ def contact_us(request):
 def faq(request):
     return render(request, "societly/faq.html")
 
+def societies(request):
+    return render(request, "societly/Show_all_societies.html")
+
 def log_in_form(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -95,11 +128,10 @@ def log_in_form(request):
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
 
-def society(request,  society_name_slug):
+def society(request, society_name_slug):
     context_dict = {}
     try:
-
-        society = Society.objects.get(slug = society_name_slug)
+        society = Society.objects.filter(slug = society_name_slug).first()
         events = Event.objects.filter(organized_by = society)
         context_dict['society'] = society
         context_dict['events'] = events
@@ -140,14 +172,47 @@ def event(request, eventId):
         context_dict['attended_by'] = None
     return render(request, "societly/event.html", context = context_dict)
 
-def signup(request):
-    return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
+@login_required
+def add_event(request, society_slug_name):
+    if request.method == 'POST':
+        event_form = EventForm(data = request.data)
+        society = Society.objects.filter(slug = society_slug_name).first()
+        student = Student.objects.filter(user = request.user).first()
+        membership = society.membership_set.filter(society = society, member = student)
+        
+        if event_form.is_valid() and membership.is_board == '2':
+            ev = event_form.save()
+            ev.organized_by = society
+
+            if 'image' in request.FILES:
+                print("yes")
+                ev.image = request.FILES['image']
+
+            ev.save()
+            return event(request, ev.id)
+
+    else:
+        event_form = EventForm()
+
+    return render(
+        request,
+        'societly/addEvent.html',
+        {
+            'event_form': event_form,
+        }
+    )
 
 @login_required
-def add_event(request, matricNo):
-    #function to add an event (by a society/board member of a society), make sure the function works if and only if
-    #membership exists AND it is of type 'Board Member'
-    return
+def subscribe(request, society_slug_name):
+    user = request.user
+    try:
+        membership = Membership()
+        membership.member = Student.objects.filter(user = user).first()
+        membership.society = Society.objects.filter(slug = society_slug_name).first()
+    except Exception as e:
+        raise
+    #to complete in a way that, when subscribed, the subscribe button disappears?
+    return society(request, society_name_slug)
 
 @login_required 
 def user_logout(request): 

@@ -13,4 +13,9 @@ urlpatterns = [
     url(r'^society/(?P<society_name_slug>[\w\-]+)/$', views.society, name='society'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^subscribe/$', views.subscribe_to_society, name='subscribe'),
+    url(r'^showallsoc/$', views.show_all_societies, name='all_societies'),
+    url(r'^showalleve/$', views.show_all_events, name='all_events'),
+    url(r'^showallmysoc/$', views.show_your_societies, name='my_societies'),
+    url(r'^showallmyeve/$', views.show_your_events, name='my_events'),
+    url(r'^logout/', views.logout, name='logout'),
 ]
