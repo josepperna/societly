@@ -19,10 +19,6 @@ def show_all_societies(request):
     societies = Society.object.order_by('date')
     context_dict = {'societies': societies}
     return render(request, 'societly/Show_all_societies.html', context_dict)
-<<<<<<< HEAD
-
-=======
->>>>>>> 1b5cb1f1f30116702c47d6d71da93d49d3306f96
 
 @login_required
 def show_your_societies(request):
@@ -32,10 +28,6 @@ def show_your_societies(request):
     print(societies)
     return render(request, 'societly/Show_all_societies.html', context_dict)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1b5cb1f1f30116702c47d6d71da93d49d3306f96
 def show_all_events(request):
     events = Event.object.order_by('date')
     context_dict = {'events': events}
@@ -89,7 +81,7 @@ def profile(request):
         context_dict['fullname'] = member.get_fullname(request.user)
         context_dict['matricNo'] = member.matricNo
         context_dict['degree'] = member.degree
-        context_dict['societies'] =  Membership.objects.filter(member = member).order_by('-date')[:3]
+        context_dict['societies'] =  Membership.objects.filter(member = member).order_by('-date_joined')[:3]
         print(context_dict['societies'])
         # context_dict['memberships'] = len(list(memberships))
         context_dict['events'] = Event.objects.filter(attended_by = member).order_by('-date')[:3]
@@ -140,7 +132,7 @@ def log_in_form(request):
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
 
-def society(request,  society_name_slug):
+def society(request, society_name_slug):
     context_dict = {}
     try:
         society = Society.objects.get(slug = society_name_slug)
