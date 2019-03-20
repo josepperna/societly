@@ -42,11 +42,14 @@
                       </div>
                     </div>
 
-                    <div class="row" style = "background-color: rgb(81, 34, 149); margin-top: 15px;">
-                        <h3 class = "col-12" style = "color:white">Events</h3>
+                    <div class = "row col-12" style = "margin-top: 15px;">
+                        <button class="btn btn-light" id = "partbtn" onclick="showParts()" id = "">Show participants</button>
+                        <br/><ul id = "participants" style = "display:none">
+                        {%for par in participans %}
+                          <li>{{par.name}}</li>
+                        {%endfor%}
+                        </ul>
                     </div>
-
-                    <div class = "events-container" style = "margin-top: 15px;"></div>
       
             </div>
                     
@@ -103,6 +106,18 @@
                     but.innerHTML = "Show less";
                 }
             }
+
+        var par  = document.getElementById("participants");
+        var partbtn = document.getElementById("partbtn");
+        function showParts(){
+            if (par.style.display == "none"){
+                par.style.display = "inline";
+                partbtn.innerHTML = "Hide participants";
+            }else{
+                par.style.display = "none";
+                partbtn.innerHTML = "Show participants";
+            }
+        }
     </script>
     
 </html>
