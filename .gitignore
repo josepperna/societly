@@ -1,2 +1,4 @@
 #ignore migrations
 backend/migrations/
+#ignore .idea
+.idea
