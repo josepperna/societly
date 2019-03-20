@@ -16,7 +16,7 @@ def index(request):
         return render(request, "societly/home.html")
 
 def show_all_societies(request):
-    societies = Society.object.order_by('date')
+    societies = Society.objects.all()
     context_dict = {'societies': societies}
     return render(request, 'societly/Show_all_societies.html', context_dict)
 
@@ -116,9 +116,6 @@ def contact_us(request):
 
 def faq(request):
     return render(request, "societly/faq.html")
-
-def societies(request):
-    return render(request, "societly/Show_all_societies.html")
 
 def log_in_form(request):
     if request.method == "POST":
