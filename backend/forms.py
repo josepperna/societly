@@ -2,7 +2,6 @@ from django import forms
 from .models import Student, Society, Event, Review, Membership
 from django.contrib.auth.models import User
 
-
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
 
