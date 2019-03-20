@@ -14,5 +14,5 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
 
     url(r'about-us/', views.about_us, name='about-us'),
-    url(r'<str:matricNo>/', views.profile_page, name='profile-page')
+    url(r'<str:matricNo>/', views.profile, name='profile-page')
 ]
