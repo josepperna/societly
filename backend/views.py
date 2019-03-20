@@ -39,6 +39,32 @@ def register(request):
          student_form = StudentForm()
 
     return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
+@login_required
+def profile(request):
+    context_dict = {}
+    try:
+        member = Student.objects.get(user=request.user)
+        #member = Student.objects.get(matricNo = matricNo)
+        context_dict['fullname'] = member.get_fullname(request.user)
+        context_dict['matricNo'] = member.matricNo
+        context_dict['degree'] = member.degree
+        context_dict['societies'] = Society.objects.filter(member = matricNo)
+        context_dict['memberships'] = len(list(memberships))
+        context_dict['events'] = Event.objects.filter(attended_by = matricNo)
+        context_dict['societies'] = None
+        context_dict['memberships'] = None
+        context_dict['events'] = None
+        context_dict['picture'] = member.picture
+    except:
+        context_dict['fullname'] = None
+        context_dict['matricNo'] = None
+        context_dict['degree'] = None
+        context_dict['societies'] = None
+        context_dict['memberships'] = None
+        context_dict['events'] = None
+        context_dict['picture'] = None
+
+    return render(request, "societly/profile.html", context = context_dict)
 
 def about_us(request):
     return render(request, "societly/about-us.html")
@@ -62,7 +88,8 @@ def log_in_form(request):
         if user:
                 login(request,user)
                 matricNo = Student.objects.filter(user=user)[0].matricNo
-                return HttpResponseRedirect(reverse('profile', args=[matricNo]))
+                #return HttpResponseRedirect(reverse('profile', args=[matricNo]))
+                return HttpResponseRedirect(reverse('profile'))
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
 
@@ -78,36 +105,6 @@ def society(request,  society_name_slug):
         context_dict['events'] = None
         raise
     return render(request, "societly/society.html", context = context_dict)
-
-@login_required
-def profile(request, matricNo):
-    context_dict = {}
-    try:
-
-        member = Student.objects.get(matricNo = matricNo)
-        context_dict['fullname'] = member.get_fullname(request.user)
-        context_dict['matricNo'] = member.matricNo
-        context_dict['degree'] = member.degree
-        #context_dict['societies'] = Society.objects.filter(member = matricNo)
-        #context_dict['memberships'] = len(list(memberships))
-        #context_dict['events'] = Event.objects.filter(attended_by = matricNo)
-        #Set to nono because db is not populated with events
-        context_dict['societies'] = None
-        context_dict['memberships'] = None
-        context_dict['events'] = None
-        context_dict['picture'] = member.picture
-    except Exception as e:
-        print(e);
-        context_dict['fullname'] = None
-        context_dict['matricNo'] = None
-        context_dict['degree'] = None
-        context_dict['societies'] = None
-        context_dict['memberships'] = None
-        context_dict['events'] = None
-        context_dict['picture'] = None
-
-    print(context_dict)
-    return render(request, "societly/profile.html", context = context_dict)
 
 @login_required
 def event(request, eventId):
@@ -148,3 +145,8 @@ def add_event(request, matricNo):
         'events': events,
         'picture': picture
     })
+
+@login_required 
+def user_logout(request): 
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
