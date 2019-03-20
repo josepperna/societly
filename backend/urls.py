@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^faq/', views.faq, name='faq'),
     url(r'^society/(?P<society_name_slug>[\w\-]+)/$', views.society, name='society'),
     url(r'^logout/$', views.user_logout, name='logout'),
+    url(r'^subscribe/$', views.subscribe_to_society, name='subscribe'),
 ]

@@ -114,7 +114,7 @@ class Membership(models.Model):
     member = models.ForeignKey(Student, on_delete = models.CASCADE)
     society = models.ForeignKey(Society, on_delete = models.CASCADE)
     date_joined = models.DateField(auto_now = True)
-    is_board = models.CharField(choices = ROLE, default = '2', max_length = 1)
+    is_board = models.CharField(choices = ROLE, default = '1', max_length = 1)
 
     def __str__(self):
         return "{} {}".format(self.member, self.society)
