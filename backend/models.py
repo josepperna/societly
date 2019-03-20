@@ -111,7 +111,7 @@ class Membership(models.Model):
         ('2', 'Board Member')
     )
 
-    member = models.ForeignKey(Student, on_delete = models.CASCADE)
+    member = models.ForeignKey(Student, on_delete = models.CASCADE, related_name="society_member")
     society = models.ForeignKey(Society, on_delete = models.CASCADE)
     date_joined = models.DateField(auto_now = True)
     is_board = models.CharField(choices = ROLE, default = '1', max_length = 1)

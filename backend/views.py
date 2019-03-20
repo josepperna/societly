@@ -19,6 +19,10 @@ def show_all_societies(request):
     societies = Society.object.order_by('date')
     context_dict = {'societies': societies}
     return render(request, 'societly/Show_all_societies.html', context_dict)
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1b5cb1f1f30116702c47d6d71da93d49d3306f96
 
 @login_required
 def show_your_societies(request):
@@ -28,6 +32,10 @@ def show_your_societies(request):
     print(societies)
     return render(request, 'societly/Show_all_societies.html', context_dict)
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1b5cb1f1f30116702c47d6d71da93d49d3306f96
 def show_all_events(request):
     events = Event.object.order_by('date')
     context_dict = {'events': events}
