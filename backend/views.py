@@ -15,6 +15,37 @@ def index(request):
     else:
         return render(request, "societly/home.html")
 
+def show_all_societies(request){
+    societies = Society.object.order_by('date')
+    context_dict = {'societies': societies}
+    return render(request, 'societly/Show_all_societies.html', context_dict)
+}
+
+@login_required
+def show_your_societies(request){
+    student = Student.objects.filter(user = request.user)
+    societies = student.society_set.all()
+    context_dict = {'societies': societies}
+    print(societies)
+    return render(request, 'societly/Show_all_societies.html', context_dict)
+}
+
+def show_all_events(request){
+    events = Event.object.order_by('date')
+    context_dict = {'events': events}
+    return render(request, 'societly/Show_all_events.html', context_dict)
+}
+
+@login_required
+def show_your_events(request){
+    student = Student.objects.filter(user = request.user)
+    events = student.event_set.all()
+    context_dict = {'events': events}
+    print(events)
+    return render(request, 'societly/Show_all_events.html', context_dict)
+}
+
+
 def register(request):
 
     if request.method == 'POST':
@@ -53,10 +84,10 @@ def profile(request):
         context_dict['fullname'] = member.get_fullname(request.user)
         context_dict['matricNo'] = member.matricNo
         context_dict['degree'] = member.degree
-        context_dict['societies'] =  Membership.objects.filter(member = member)
+        context_dict['societies'] =  Membership.objects.filter(member = member).order_by('-date')[:3]
         print(context_dict['societies'])
         # context_dict['memberships'] = len(list(memberships))
-        context_dict['events'] = Event.objects.filter(attended_by = member)
+        context_dict['events'] = Event.objects.filter(attended_by = member).order_by('-date')[:3]
         # context_dict['societies'] = None
         context_dict['memberships'] = None
         # context_dict['events'] = None
@@ -88,6 +119,9 @@ def contact_us(request):
 def faq(request):
     return render(request, "societly/faq.html")
 
+def societies(request):
+    return render(request, "societly/Show_all_societies.html")
+
 def log_in_form(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -112,7 +146,7 @@ def society(request,  society_name_slug):
         context_dict['society'] = None
         context_dict['events'] = None
         raise
-    return render(request, "societly/society.html", context = context_dict)
+    return render(request, "societly/society_prev_version.html", context = context_dict)
 
 @login_required
 def event(request, eventId):
