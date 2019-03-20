@@ -51,7 +51,7 @@ class Society(models.Model):
     linkedin = models.URLField(blank = True)
     instagram = models.URLField(blank = True)
     twitter = models.URLField(blank = True)
-    members = models.ManyToManyField(Student, through = 'Membership', related_name="membership")
+    members = models.ManyToManyField(Student, through = 'Membership', related_name="members")
     slug = models.SlugField(blank = True)
 
     def save(self, *args, **kwargs):
