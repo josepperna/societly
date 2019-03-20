@@ -45,7 +45,7 @@ class Society(models.Model):
 
     name = models.CharField(max_length = 128, unique = True)
     description = models.TextField(max_length = 2000)
-    logo = models.ImageField(blank = True)
+    logo = models.ImageField()
     email = models.EmailField()
     facebook = models.URLField(blank = True)
     linkedin = models.URLField(blank = True)

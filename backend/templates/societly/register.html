@@ -1,3 +1,4 @@
+{% extends 'societly/base.html' %}
 <!DOCTYPE html>
 {% load staticfiles %}
 <html>
@@ -15,5 +16,17 @@
     </div>
 </body>
 
+            <form action="{%url 'register'%}" method="POST">
+                {%csrf_token%}
+                {{user_form.as_p}}
+                {{student_form.as_p}}
+                <input type="submit" value= "Sign Up!">
+            </form>
 
-</html>
+
+        </div>
+    </body>
+
+
+    </html>
+    {% endblock %}

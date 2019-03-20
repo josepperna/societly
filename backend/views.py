@@ -51,14 +51,17 @@ def profile(request):
         context_dict['fullname'] = member.get_fullname(request.user)
         context_dict['matricNo'] = member.matricNo
         context_dict['degree'] = member.degree
-        context_dict['societies'] = Society.objects.filter(member = matricNo)
-        context_dict['memberships'] = len(list(memberships))
-        context_dict['events'] = Event.objects.filter(attended_by = matricNo)
-        context_dict['societies'] = None
+        context_dict['societies'] =  Membership.objects.filter(member = member)
+        print(context_dict['societies'])
+        # context_dict['memberships'] = len(list(memberships))
+        context_dict['events'] = Event.objects.filter(attended_by = member)
+        # context_dict['societies'] = None
         context_dict['memberships'] = None
-        context_dict['events'] = None
+        # context_dict['events'] = None
         context_dict['picture'] = member.picture
-    except:
+    except Exception as e: 
+        print(e)
+
         context_dict['fullname'] = None
         context_dict['matricNo'] = None
         context_dict['degree'] = None
