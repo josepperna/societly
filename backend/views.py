@@ -9,7 +9,10 @@ from .forms import LogInForm,UserForm,StudentForm
 
 # Create your views here.
 def index(request):
-    return render(request, "societly/home.html")
+    if request.user and request.user.is_authenticated:
+        return profile(request)
+    else:
+        return render(request, "societly/home.html")
 
 def register(request):
 
@@ -39,6 +42,7 @@ def register(request):
          student_form = StudentForm()
 
     return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
+
 @login_required
 def profile(request):
     context_dict = {}
@@ -134,20 +138,11 @@ def event(request, eventId):
 def signup(request):
     return HttpResponse("Wanna join this shitty ass platform? Here is the fucking sign up page")
 
+@login_required
 def add_event(request, matricNo):
     #function to add an event (by a society/board member of a society), make sure the function works if and only if
     #membership exists AND it is of type 'Board Member'
     return
-
-    return render(request, "societly/profile.html", {
-        'matricNo': matricNo,
-        'fullname': fullname,
-        'degree': degree,
-        'memberships': membership_count,
-        'societies': memberships,
-        'events': events,
-        'picture': picture
-    })
 
 @login_required 
 def user_logout(request): 

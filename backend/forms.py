@@ -2,13 +2,12 @@ from django import forms
 from .models import Student, Society, Event, Review, Membership
 from django.contrib.auth.models import User
 
-
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
 
 	class Meta:
 		model = User
-		fields = ('username','email','password')
+		fields = ('username','email','password', 'first_name', 'last_name')
 
 class LogInForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
@@ -63,9 +62,6 @@ class ReviewForm(forms.ModelForm):
         model = Review
         exclude = ('event', 'made_by')
 
-
-        model = User
-        fields = ('username', 'email', 'password')
 
 
 class MemberForm(forms.ModelForm):
