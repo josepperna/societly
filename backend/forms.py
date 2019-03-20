@@ -64,9 +64,6 @@ class ReviewForm(forms.ModelForm):
         exclude = ('event', 'made_by')
 
 
-        model = User
-        fields = ('username', 'email', 'password')
-
 
 class MemberForm(forms.ModelForm):
 
