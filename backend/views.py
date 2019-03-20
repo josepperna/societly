@@ -39,6 +39,7 @@ def register(request):
          student_form = StudentForm()
 
     return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
+
 @login_required
 def profile(request):
     context_dict = {}
@@ -135,16 +136,6 @@ def add_event(request, matricNo):
     #function to add an event (by a society/board member of a society), make sure the function works if and only if
     #membership exists AND it is of type 'Board Member'
     return
-
-    return render(request, "societly/profile.html", {
-        'matricNo': matricNo,
-        'fullname': fullname,
-        'degree': degree,
-        'memberships': membership_count,
-        'societies': memberships,
-        'events': events,
-        'picture': picture
-    })
 
 @login_required 
 def user_logout(request): 

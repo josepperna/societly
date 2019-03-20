@@ -21,7 +21,7 @@ class Student(models.Model):
 
     user = models.OneToOneField(User, null=True)
     matricNo = models.CharField(max_length = 10, unique = True, primary_key = True)
-    picture = models.ImageField(blank = False)
+    picture = models.ImageField(upload_to = 'media', null = True, blank = True)
     degree = models.CharField(max_length = 50)
     year = models.CharField(choices = YEAR, default = '1', max_length = 1)
 

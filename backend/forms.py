@@ -15,7 +15,7 @@ class LogInForm(forms.ModelForm):
 	class Meta:
 
 		model = User
-		fields = ('username','password')
+		fields = ('username','password', 'first_name', 'last_name')
 
 
 class StudentForm(forms.ModelForm):
