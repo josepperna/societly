@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^register/', views.register, name='register'),
     url(r'^faq/', views.faq, name='faq'),
     url(r'^society/(?P<society_name_slug>[\w\-]+)/$', views.society, name='society'),
+    url(r'^events/(?P<eventId>[0-9]+)/', views.event, name='event'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^subscribe/', views.subscribe_to_society, name='subscribe'),
     url(r'^unsubscribe/', views.unsubscribe_from_society, name='subscribe'),

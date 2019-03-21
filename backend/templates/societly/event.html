@@ -1,6 +1,8 @@
+{% extends user.is_authenticated|yesno:"societly/base-loged-in.html,societly/base.html" %}
 <!DOCTYPE html>
 {% load static %}
-<html lang="en" class = "h-100">
+    {% block body_block %}
+    <html lang="en" class = "h-100">
 <head>
    
     <meta charset="UTF-8">
@@ -19,9 +21,6 @@
    
 </head>   
    <div class ="h-100 text-light">
-            <nav class="navbar navbar-expand navbar-light bg-white" style ="height:10% !important">
-                <a class="navbar-brand " href="/">Societly</a>
-            </nav>
             
             <div class=" container-fluid" style ="height:80% !important; background-color:mediumpurple">       
         
@@ -37,7 +36,7 @@
                          <p class = "description"><p class="description" id = "first"></p><p  class="description" id = "dots"></p>
                             <p class="description" id = "second"></p></p>
                          <button class="btn btn-light" onclick="showMore()" id = "sbtn">Read more</button>
-                         <a class="btn btn-primary" href="{%url 'Join'%}" role="button">Interested</a>
+                         <a class="btn btn-primary" href="#" role="button">Interested</a>
                         
                       </div>
                     </div>
@@ -121,3 +120,4 @@
     </script>
     
 </html>
+    {% endblock %}
