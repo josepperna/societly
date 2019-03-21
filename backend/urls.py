@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^subscribe/$', views.subscribe_to_society, name='subscribe'),
     url(r'^showallsoc/$', views.show_all_societies, name='all_societies'),
     url(r'^showalleve/$', views.show_all_events, name='all_events'),
-    url(r'^showallmysoc/$', views.show_your_societies, name='my_societies'),
-    url(r'^showallmyeve/$', views.show_your_events, name='my_events'),
+    url(r'^profile/showallmysoc/$', views.show_your_societies, name='my_societies'),
+    url(r'^profile/showallmyeve/$', views.show_your_events, name='my_events'),
     url(r'^logout/', views.logout, name='logout'),
 ]

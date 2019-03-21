@@ -199,18 +199,6 @@ def add_event(request, society_slug_name):
         }
     )
 
-@login_required
-def subscribe(request, society_slug_name):
-    user = request.user
-    try:
-        membership = Membership()
-        membership.member = Student.objects.filter(user = user).first()
-        membership.society = Society.objects.filter(slug = society_slug_name).first()
-    except Exception as e:
-        raise
-    #to complete in a way that, when subscribed, the subscribe button disappears?
-    return society(request, society_name_slug)
-
 @login_required 
 def user_logout(request): 
     logout(request)
