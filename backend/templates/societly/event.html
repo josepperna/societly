@@ -1,7 +1,6 @@
-{% extends user.is_authenticated|yesno:"societly/base-loged-in.html,societly/base.html" %}
+
 <!DOCTYPE html>
 {% load static %}
-    {% block body_block %}
     <html lang="en" class = "h-100">
 <head>
    
@@ -20,21 +19,52 @@
 
    
 </head>   
-   <div class ="h-100 text-light">
-            
+<body class = "h-100 text-light " onload="seeMore()">
+   
+        <div class ="h-100">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light " style = "height:10% !important;">
+                        <a class="navbar-brand " href="{% url 'index' %}">Societly</a>   
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                          
+                        <ul class="navbar-nav ml-auto">
+                          <li class="nav-item active ml-auto">
+                            <a class="nav-link ml-auto" href="{% url 'index' %}">Home<span class="sr-only">(current)</span></a>
+                          </li>
+                          
+                          <li class="nav-item " >
+                            <a class="nav-link" href="{% url 'all_societies' %}">Societies</a>
+                          </li>
+          
+                          <li class="nav-item ">
+                            <a class="nav-link" href="{% url 'all_events' %}">Events</a>
+                          </li>
+          
+                          <li class="nav-item ">
+                            <a class="nav-link" href="{% url 'profile' %}">{{user.username}}</a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            </li>
+                        </ul>
+                      </div>
+          
+                    
+                </nav>
+          
             <div class=" container-fluid" style ="height:80% !important; background-color:mediumpurple">       
         
                     <div class="row">
-                      <div class="col-3 d-none d-sm-block" style = "margin-top : 10px; ">
+                      <div class="col-3 d-none d-sm-block" style = "padding:0;overflow:hidden;display:block;height:100%;width:100%;margin-top : 10px;border : 3px solid #bf9de0; ">
                         <img src="{{image.url}}" alt ="Event image">
                       </div>
-                      <div class="col-12 col-sm-9">
+                      <div class="col-12 col-sm-9" style = "border : 3px solid #bf9de0; margin-top : 10px;">
                          <div style = "margin-top: 10px"> 
-                            <h2>{{name}}</h2><br/>
+                            <h2>{{name}}</h2>
                             <h4>{{date}}</h4>
                         </div>
-                         <p class = "description"><p class="description" id = "first"></p><p  class="description" id = "dots"></p>
-                            <p class="description" id = "second"></p></p>
+                        <p class = "description"><p class="description" id = "first"></p><p  class="description" id = "dots"></p>
+                        <p class="description" id = "second"></p>
+                    </p>
                          <button class="btn btn-light" onclick="showMore()" id = "sbtn">Read more</button>
                          <a class="btn btn-primary" href="#" role="button">Interested</a>
                         
@@ -83,25 +113,25 @@
 
                 text = "{{description}}";
                 let text1 = text.substring(0,400);
-                para[0].innerHTML = text1;
-                para[1].innerHTML = "";
+                para[1].innerHTML = text1;
+                para[2].innerHTML = "";
                 if(text.length>400){ 
-                    para[1].innerHTML = "...";
+                    para[2].innerHTML = "...";
                     but.style.display("inline");
                     }               
                 showEv();
 
             }
         function showMore(){    
-                if(para[2].innerHTML != ""){ 
-                    para[2].innerHTML = "";
-                    para[1].innerHTML = "...";
+                if(para[3].innerHTML != ""){ 
+                    para[3].innerHTML = "";
+                    para[2].innerHTML = "...";
                     but.innerHTML = "Read more";
                 }
                 else{     
                     let text2 = text.substring(100);
-                    para[1].innerHTML = "";
-                    para[2].innerHTML = text2;
+                    para[2].innerHTML = "";
+                    para[3].innerHTML = text2;
                     but.innerHTML = "Show less";
                 }
             }
@@ -120,4 +150,4 @@
     </script>
     
 </html>
-    {% endblock %}
+

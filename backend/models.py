@@ -4,12 +4,9 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.template.defaultfilters import slugify
 
-<<<<<<< HEAD
 # Create your models here.
 
 #Model to represent student/member (with one-to-one relationship with user)
-=======
->>>>>>> e9707936bc89f3cf4b94f051f5a72ec406e75e1e
 class Student(models.Model):
 
     YEAR = (
