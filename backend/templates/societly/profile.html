@@ -86,8 +86,9 @@
                                             
                                             <div class="events d-none d-sm-block col-3" style = "border : 3px solid #bf9de0; bottom:5%;margin:2%;border-radius :25px;
                                             background-image: url('{{ev.image.url}}');opacity:0.7; ">
-                                                <h3 style = "position:absolute"><font color="white">{{ev.name}} </font> </h3>
-                                                
+                                                <a href="/events/{{ev.id}}/">
+                                                    <h3 style = "position:absolute"><font color="white">{{ev.name}} </font> </h3>
+                                                </a>
                                             </div>
                                             {% endfor %}   
                                         
