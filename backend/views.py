@@ -38,7 +38,7 @@ def show_all_events(request):
 @login_required
 def show_your_events(request):
     student = Student.objects.filter(user = request.user)
-    events = student.event_set.all()
+    events = Event.objects.filter(attended_by = student)
     context_dict = {'events': events}
     print(events)
     return render(request, 'societly/showmyevents.html', context_dict)
