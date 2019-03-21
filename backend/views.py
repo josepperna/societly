@@ -9,17 +9,20 @@ from .forms import LogInForm,UserForm,StudentForm, EventForm
 import datetime
 
 # Create your views here.
+#Homepage view if the user is not logged in, profile page view otherwise
 def index(request):
     if request.user and request.user.is_authenticated:
         return profile(request)
     else:
         return render(request, "societly/home.html")
 
+#View to show all societies in the database
 def show_all_societies(request):
     societies = Society.objects.all()
     context_dict = {'societies': societies}
     return render(request, 'societly/Show_all_societies.html', context_dict)
 
+#View to show all the societies the current logged in user is member of
 @login_required
 def show_your_societies(request):
     student = Student.objects.filter(user = request.user)
@@ -28,13 +31,14 @@ def show_your_societies(request):
     print(societies)
     return render(request, 'societly/showmysocieties.html', context_dict)
 
+#Show all events in the database
 def show_all_events(request):
     events = Event.objects.all()
     print(events)
     context_dict = {'events': events}
     return render(request, 'societly/show_all_events.html', context_dict)
 
-
+#Show all events attended/to be attended by the current user
 @login_required
 def show_your_events(request):
     student = Student.objects.filter(user = request.user)
@@ -43,7 +47,7 @@ def show_your_events(request):
     print(events)
     return render(request, 'societly/showmyevents.html', context_dict)
 
-
+#View to sign up with a new account
 def register(request):
 
     if request.method == 'POST':
@@ -94,7 +98,7 @@ def register(request):
 #
 #        return render(request, 'societly/registerSociety.html', {'society_form':society_form})
 
-
+#View to get profile information
 @login_required
 def profile(request):
     context_dict = {}
@@ -119,15 +123,19 @@ def profile(request):
 
     return render(request, "societly/profile.html", context = context_dict)
 
+#About us page view
 def about_us(request):
     return render(request, "societly/about-us.html")
 
+#Contact us page view
 def contact_us(request):
     return render(request, "societly/contact-us.html")
 
+#Frequently asked questions page view
 def faq(request):
     return render(request, "societly/faq.html")
 
+#View to login a registered user
 def log_in_form(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -140,6 +148,7 @@ def log_in_form(request):
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
 
+#View to see a specific societies info
 def society(request, society_name_slug):
     context_dict = {}
     try:
@@ -165,6 +174,7 @@ def society(request, society_name_slug):
     print(events)
     return render(request, "societly/society.html", context = context_dict)
 
+#View to see a specific event's info
 @login_required
 def event(request, eventId):
     context_dict = {}
@@ -188,6 +198,7 @@ def event(request, eventId):
         context_dict['participants'] = None
     return render(request, "societly/event.html", context = context_dict)
 
+#View to add a new event to a specific societies list of events
 @login_required
 def add_event(request, society_name_slug):
 
@@ -219,11 +230,13 @@ def add_event(request, society_name_slug):
         }
     )
 
+#View to logout and redirect to the home page
 @login_required 
 def user_logout(request): 
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
+#View to get the membership of a society
 @login_required
 def subscribe_to_society(request):
     if request.method == 'GET':
@@ -233,6 +246,7 @@ def subscribe_to_society(request):
             Membership.objects.get_or_create(society=society ,member=Student.objects.get(user=request.user))
     return HttpResponse()
 
+#View to delete a membership of a society
 @login_required
 def unsubscribe_from_society(request):
     if request.method == 'GET':
@@ -242,6 +256,7 @@ def unsubscribe_from_society(request):
             Membership.objects.filter(society=society, member=Student.objects.get(user=request.user)).delete()
     return HttpResponse()
 
+#View to allow payment for subscription in a society
 @login_required
 def payment(request):
     return render(request, "societly/payment.html", {})
