@@ -169,9 +169,9 @@ def add_event(request, society_name_slug):
 
     if request.method == 'POST':
         event_form = EventForm(data = request.POST)
-        society = Society.objects.filter(slug = society_name_slug).first()
+        society = Society.objects.filter(slug = society_name_slug)
         student = Student.objects.filter(user = request.user).first()
-        membership = society.membership_set.filter(society = society, member = student)
+        membership = society.first().membership_set.filter(society = society, member = student)
         
         if event_form.is_valid():
             ev = event_form.save()
