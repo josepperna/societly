@@ -29,7 +29,8 @@ def show_your_societies(request):
     return render(request, 'societly/showmysocieties.html', context_dict)
 
 def show_all_events(request):
-    events = Event.objects.order_by('date')
+    events = Event.objects.all()
+    print(events)
     context_dict = {'events': events}
     return render(request, 'societly/show_all_events.html', context_dict)
 
@@ -164,14 +165,15 @@ def event(request, eventId):
     return render(request, "societly/event.html", context = context_dict)
 
 @login_required
-def add_event(request, society_slug_name):
+def add_event(request, society_name_slug):
+
     if request.method == 'POST':
-        event_form = EventForm(data = request.data)
-        society = Society.objects.filter(slug = society_slug_name).first()
+        event_form = EventForm(data = request.POST)
+        society = Society.objects.filter(slug = society_name_slug).first()
         student = Student.objects.filter(user = request.user).first()
         membership = society.membership_set.filter(society = society, member = student)
         
-        if event_form.is_valid() and membership.is_board == '2':
+        if event_form.is_valid():
             ev = event_form.save()
             ev.organized_by = society
 
