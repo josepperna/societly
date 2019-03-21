@@ -21,7 +21,7 @@
    
 </head>
 
-<body class = "h-100 text-light" onload="seeMore()">
+<body class = "h-100 text-light " onload="seeMore()">
    
    <div class ="h-100">
             <nav class="navbar navbar-expand navbar-light bg-white" style ="height:10% !important">
@@ -31,13 +31,14 @@
             <div class=" container-fluid" style ="height:80% !important; background-color:mediumpurple">       
         
                     <div class="row">
-                      <div class="col-3 d-none d-sm-block" style = "margin-top : 10px; ">
+                      <div class="col-5 d-none d-sm-block" style = "padding:0;overflow:hidden;display:block;height:100%;width:100%;margin-top : 10px;border : 3px solid #bf9de0; ">
                         <img src="{{society.logo.url}}" alt ="Society image">
                       </div>
-                      <div class="col-12 col-sm-9">
+                      <div class="col-12 col-sm-7" style = "border : 3px solid #bf9de0; margin-top : 10px;">
                          <div style = "margin-top: 10px"> <h2>{{society.name}}</h2></div>
                          <p class = "description"><p class="description" id = "first"></p><p  class="description" id = "dots"></p>
-                            <p class="description" id = "second"></p></p>
+                            <p class="description" id = "second"></p>
+                         </p>
                          <button class="btn btn-light" onclick="showMore()" id = "sbtn">Read more</button>
                             {% if not user.is_authenticated %}
                               <a class="btn btn-primary" href="{%url 'register'%}" role="button">Register to subscribe</a>
@@ -97,6 +98,7 @@
             </footer>
  
 </body>
+
 <script>
         var para = document.getElementsByClassName("description");
         var but =  document.getElementById("sbtn");
@@ -104,24 +106,24 @@
         function seeMore(){ 
                 text = "{{society.description}}";//"{% lorem %}";
                 let text1 = text.substring(0,400);
-                para[0].innerHTML = text1;
-                para[1].innerHTML = "";
+                para[1].innerHTML = text1;
+                para[2].innerHTML = "";
                 if(text.length>400){ 
-                    para[1].innerHTML = "...";
+                    para[2].innerHTML = "...";
                     but.style.display("inline");
                     }               
                 showEv();
             }
         function showMore(){    
-                if(para[2].innerHTML != ""){ 
-                    para[2].innerHTML = "";
-                    para[1].innerHTML = "...";
+                if(para[3].innerHTML != ""){ 
+                    para[3].innerHTML = "";
+                    para[2].innerHTML = "...";
                     but.innerHTML = "Read more";
                 }
                 else{     
                     let text2 = text.substring(100);
-                    para[1].innerHTML = "";
-                    para[2].innerHTML = text2;
+                    para[2].innerHTML = "";
+                    para[3].innerHTML = text2;
                     but.innerHTML = "Show less";
                 }
             }
@@ -154,6 +156,6 @@
                 evTable.appendChild(tab);   }+   
             {%endfor%}
             }
-    </script>
+</script>
     
 </html>
