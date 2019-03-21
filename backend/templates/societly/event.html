@@ -26,12 +26,12 @@
         
                     <div class="row">
                       <div class="col-3 d-none d-sm-block" style = "margin-top : 10px; ">
-                        <img src="{{event.logo.url}}" alt ="Event image">
+                        <img src="{{image.url}}" alt ="Event image">
                       </div>
                       <div class="col-12 col-sm-9">
                          <div style = "margin-top: 10px"> 
-                            <h2>{{event.name}}</h2><br/>
-                            <h4>{{event.date}}</h4>
+                            <h2>{{name}}</h2><br/>
+                            <h4>{{date}}</h4>
                         </div>
                          <p class = "description"><p class="description" id = "first"></p><p  class="description" id = "dots"></p>
                             <p class="description" id = "second"></p></p>
@@ -44,8 +44,8 @@
                     <div class = "row col-12" style = "margin-top: 15px;">
                         <button class="btn btn-light" id = "partbtn" onclick="showParts()" id = "">Show participants</button>
                         <br/><ul id = "participants" style = "display:none">
-                        {%for par in event.participants %}
-                          <li>{{par.name}}</li>
+                        {%for par in participants %}
+                          <li>{{par.user.username}}</li>
                         {%endfor%}
                         </ul>
                     </div>
@@ -81,7 +81,7 @@
         var text  = "";
         function seeMore(){ 
 
-                text = "{{event.description}}";//"{% lorem %}";
+                text = "{{description}}";
                 let text1 = text.substring(0,400);
                 para[0].innerHTML = text1;
                 para[1].innerHTML = "";

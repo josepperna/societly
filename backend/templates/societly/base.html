@@ -24,7 +24,7 @@
    
    <div class ="h-100">
             <nav class="navbar navbar-expand navbar-light bg-white" style ="height:10% !important">
-                <a class="navbar-brand " href="/">Societly</a>
+                <a class="navbar-brand " href="{% url 'index' %}">Societly</a>
                  
                 <div class=" collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                               
@@ -32,7 +32,7 @@
                             
                         <li class="nav-item active ">
                            
-                            <a class="nav-link" style = "background-color:rgb(81, 34, 149); border-radius: 25%" href="/userlogin/"><font color = "white">Log In</font></a>
+                            <a class="nav-link" style = "background-color:rgb(81, 34, 149); border-radius: 25%" href="{% url 'login' %}"><font color = "white">Log In</font></a>
 
                         </li>
                                   
@@ -49,14 +49,14 @@
                   <ul class="nav navbar-nav ">
                        
                         <li class="nav-item active">
-                            <a class="nav-link" href="/about-us/"><font color="white">About us</font></a>
+                            <a class="nav-link" href="{% url 'about-us' %}"><font color="white">About us</font></a>
                          </li>
           
                         <li class="nav-item active">                                  
-                            <a class="nav-link" href="/contact-us/"><font color="white">Contact us</font></a>
+                            <a class="nav-link" href="{% url 'contact_us' %}"><font color="white">Contact us</font></a>
                          </li>
                         <li class="nav-item active">    
-                            <a class="nav-link" href="/faq/"><font color="white">FAQs</font></a>
+                            <a class="nav-link" href="{% url 'faq' %}"><font color="white">FAQs</font></a>
                          </li>
                      </ul>
                     </div>

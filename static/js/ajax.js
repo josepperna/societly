@@ -9,7 +9,7 @@ $(document).ready(function(){
     }
     $('.subscribe').click(function(){  
         society = $(this).attr("data-society"); 
-        $.get('/subscribe/', {society: society}, function(){  
+        $.get('{% url 'subscribe' %}', {society: society}, function(){  
             $('.subscribe').toggle();
             $('.unsubscribe').toggle(); 
         }); 
@@ -17,7 +17,7 @@ $(document).ready(function(){
     });
     $('.unsubscribe').click(function(){  
         society = $(this).attr("data-society"); 
-        $.get('/unsubscribe/', {society: society}, function(){  
+        $.get('{% url 'unsubscribe' %}', {society: society}, function(){  
             $('.subscribe').toggle();
             $('.unsubscribe').toggle(); 
         }); 
