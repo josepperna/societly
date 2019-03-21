@@ -77,27 +77,20 @@ def profile(request):
     context_dict = {}
     try:
         member = Student.objects.get(user=request.user)
-        #member = Student.objects.get(matricNo = matricNo)
         context_dict['fullname'] = member.get_fullname(request.user)
         context_dict['matricNo'] = member.matricNo
         context_dict['degree'] = member.degree
         context_dict['societies'] =  Membership.objects.filter(member = member).order_by('-date_joined')[:3]
         print(context_dict['societies'])
-        # context_dict['memberships'] = len(list(memberships))
         context_dict['events'] = Event.objects.filter(attended_by = member).order_by('-date')[:3]
         print(context_dict['events'])
-        # context_dict['societies'] = None
-        context_dict['memberships'] = None
-        # context_dict['events'] = None
         context_dict['picture'] = member.picture
-    except Exception as e: 
+    except Exception as e:
         print(e)
-
         context_dict['fullname'] = None
         context_dict['matricNo'] = None
         context_dict['degree'] = None
         context_dict['societies'] = None
-        context_dict['memberships'] = None
         context_dict['events'] = None
         context_dict['picture'] = None
 
@@ -120,7 +113,6 @@ def log_in_form(request):
         if user:
                 login(request,user)
                 matricNo = Student.objects.filter(user=user)[0].matricNo
-                #return HttpResponseRedirect(reverse('profile', args=[matricNo]))
                 return HttpResponseRedirect(reverse('profile'))
     form = LogInForm()
     return render(request,'societly/LogIn.html',{'form':form})
@@ -143,6 +135,7 @@ def society(request, society_name_slug):
             context_dict['member'] = False
         print(context_dict['member'])
     except Exception as e:
+        print(e)
         context_dict['society'] = None
         context_dict['events'] = None
         context_dict['member'] = False
@@ -222,3 +215,7 @@ def unsubscribe_from_society(request):
         if society:
             Membership.objects.filter(society=society, member=Student.objects.get(user=request.user)).delete()
     return HttpResponse()
+
+@login_required
+def payment(request):
+    return render(request, "societly/payment.html", {})
