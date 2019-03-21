@@ -21,11 +21,11 @@
                          {% if not user.is_authenticated %}
                             <a class="btn btn-primary" href="{%url 'register'%}" role="button">Register to subscribe</a>
                          {% elif member %}
-                            <a id="unsubscribe1" class="btn btn-primary unsubscribe" role="button" data-society="{{society.slug}}" data-member="{{member}}">Unsubscribe</a>
-                            <a id="subscribe1"class="btn btn-primary subscribe" role="button" data-society="{{society.slug}}" data-member="{{member}}">Subscribe</a>
+                            <a class="btn btn-primary unsubscribe" role="button" data-society="{{society.slug}}" data-member="{{member}}">Unsubscribe</a>
+                            <a class="btn btn-primary subscribe" role="button" data-society="{{society.slug}}" data-member="{{member}}">Subscribe</a>
                          {% else %}
-                            <a id="unsubscribe" class="btn btn-primary unsubscribe" role="button" data-society="{{society.slug}}" data-member="{{member}}">Unsubscribe</a>
-                            <a id="subscribe" class="btn btn-primary subscribe" role="button" data-society="{{society.slug}}" data-member="{{member}}">Subscribe</a>
+                            <a class="btn btn-primary unsubscribe" role="button" data-society="{{society.slug}}" data-member="{{member}}">Unsubscribe</a>
+                            <a class="btn btn-primary subscribe" role="button" data-society="{{society.slug}}" data-member="{{member}}">Subscribe</a>
                          {% endif %}
                         
                       </div>
@@ -58,67 +58,66 @@
           </div>  
 <script>
 
+var para = document.getElementsByClassName("description");
+var but =  document.getElementById("sbtn");
+var text  = "";
+function seeMore(){ 
 
-        var para = document.getElementsByClassName("description");
-        var but =  document.getElementById("sbtn");
-        var text  = "";
-        function seeMore(){ 
+        text = "{{society.description}}";
+        let text1 = text.substring(0,400);
+        para[0].innerHTML = text1;
+        para[1].innerHTML = "";
+        if(text.length>400){ 
+            para[1].innerHTML = "...";
+            but.style.display("inline");
+            }               
+        showEv();
 
-                text = "{{society.description}}";//"{% lorem %}";
-                let text1 = text.substring(0,400);
-                para[0].innerHTML = text1;
-                para[1].innerHTML = "";
-                if(text.length>400){ 
-                    para[1].innerHTML = "...";
-                    but.style.display("inline");
-                    }               
-                showEv();
+    }
+function showMore(){    
+        if(para[2].innerHTML != ""){ 
+            para[2].innerHTML = "";
+            para[1].innerHTML = "...";
+            but.innerHTML = "Read more";
+        }
+        else{     
+            let text2 = text.substring(100);
+            para[1].innerHTML = "";
+            para[2].innerHTML = text2;
+            but.innerHTML = "Show less";
+        }
+    }
 
-            }
-        function showMore(){    
-                if(para[2].innerHTML != ""){ 
-                    para[2].innerHTML = "";
-                    para[1].innerHTML = "...";
-                    but.innerHTML = "Read more";
-                }
-                else{     
-                    let text2 = text.substring(100);
-                    para[1].innerHTML = "";
-                    para[2].innerHTML = text2;
-                    but.innerHTML = "Show less";
-                }
-            }
-        
-        var evTable = document.getElementById("evTable");
+var evTable = document.getElementById("evTable");
 
-        var evCounter = 0;
-        var maxNum = 0;
-        function showEV(){           
-            maxNum += 5;
-            {%for ev in events%}
+var evCounter = 0;
+var maxNum = 0;
+function showEV(){           
+    maxNum += 5;
+    {%for ev in events%}
 
-                var tab =  document.createElement('tr');
-                tab.setAttribute('scope','row');
-                tab.innerHTML = evCounter++;
-    
-                var nm =  document.createElement('td');  
-                nm.innerHTML  = {{ev.name}};     
-                var so =  document.createElement('td');
-                so.innerHTML = {{ev.society}};
-                var da =  document.createElement('td');
-                da.innerHTML = {{ev.date}};
-                var bu = document.createElement('a');
-                bu.setAttribute('href','event/{{ev.name}}');
-    
-                if(evCounter<maxNum){
-                tab.appendChild(nm);
-                tab.appendChild(so);
-                tab.appendChild(da);
-                tab.appendChild(bu);
-    
-                evTable.appendChild(tab);   }+   
-            {%endfor%}
-            }
+        var tab =  document.createElement('tr');
+        tab.setAttribute('scope','row');
+        tab.innerHTML = evCounter++;
+
+        var nm =  document.createElement('td');  
+        nm.innerHTML  = {{ev.name}};     
+        var so =  document.createElement('td');
+        so.innerHTML = {{ev.society}};
+        var da =  document.createElement('td');
+        da.innerHTML = {{ev.date}};
+        var bu = document.createElement('a');
+        bu.setAttribute('href','event/{{ev.name}}');
+
+        if(evCounter<maxNum){
+        tab.appendChild(nm);
+        tab.appendChild(so);
+        tab.appendChild(da);
+        tab.appendChild(bu);
+
+        evTable.appendChild(tab);   }+   
+    {%endfor%}
+    }
 
     </script>
     

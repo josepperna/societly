@@ -1,24 +1,16 @@
 {% extends 'societly/base.html' %}
-<!DOCTYPE html>
+
 {% load staticfiles %}
-     {% block body_block %}
-    <html>
-    <head>
-        <title>Register</title>
-    </head>
-    <body>
-        <div id="box" style = "text-align: center">
-            <form is = "registration_form" action="{% url 'register' %}" method="POST" enctype = "multipart/form-data">
-                {% csrf_token %}
-                {{user_form.as_p}}
-                {{student_form.as_p}}
-                <input type="submit" value= "Sign Up!"/>
-            </form>
-        </div>
-    </body>
-        </div>
-    </body>
-
-
-    </html>
-    {% endblock %}
+{% block title_block %}
+    <title>Register</title>
+{% endblock %}
+{% block body_block %}
+    <div id="box" style = "text-align: center">
+        <form is = "registration_form" action="{% url 'register' %}" method="POST" enctype = "multipart/form-data">
+            {% csrf_token %}
+            {{user_form.as_p}}
+            {{student_form.as_p}}
+            <input type="submit" value= "Sign Up!"/>
+        </form>
+    </div>
+{% endblock %}

@@ -1,41 +1,31 @@
 {% extends user.is_authenticated|yesno:"societly/base-loged-in.html,societly/base.html" %}
-<!DOCTYPE html>
+{% block title_block %}
+    <title>Log In</title>
+{% endblock %}
 {% load staticfiles %}
-    {% block body_block %}
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Societly: All Events</title>
-    </head>
-    <body>
-        <div id = "right" class="col-md-9 h-100 col-12 " style = "padding:0;">
+{% block body_block %}
 
-                            <div class="row" style  = "height:46%; background-color: white; margin:0;">
+  <div id = "right" class="col-md-9 h-100 col-12 " style = "padding:0;">
 
-                              <div style = "width:100%; margin-left:5%;margin-right:5%;margin-top:10px;margin-bottom:10px;">
-                                <h3 class = "col-12" style= " height:20%; margin:0; padding-top: 5px; ">Events:</h3>
+        <div class="row" style  = "height:46%; background-color: white; margin:0;">
 
-                                <div class="row col-12" style= " height:80%;">
-                                        {% for ev in events %}
+          <div style = "width:100%; margin-left:5%;margin-right:5%;margin-top:10px;margin-bottom:10px;">
+            <h3 class = "col-12" style= " height:20%; margin:0; padding-top: 5px; ">Events:</h3>
 
-                                              <div id = "god" class="societies d-none d-sm-block col-3" style = "border : 3px solid #bf9de0; bottom:5%;margin:2%;border-radius :25px;
-                                              background-image: url('{{ev.image.url}}'); opacity:0.7;">
-                                              <a href="/events/{{ev.id}}">
-                                              <h3 style = "position:absolute"><font color="black">{{ev.name}} </font> </h3>
-                                              </a>
-                                              </div>
+            <div class="row col-12" style= " height:80%;">
+                    {% for ev in events %}
 
-                                        {% endfor %}
+                          <div id = "god" class="societies d-none d-sm-block col-3" style = "border : 3px solid #bf9de0; bottom:5%;margin:2%;border-radius :25px;
+                          background-image: url('{{ev.image.url}}'); opacity:0.7;">
+                          <a href="/events/{{ev.id}}">
+                          <h3 style = "position:absolute"><font color="black">{{ev.name}} </font> </h3>
+                          </a>
+                          </div>
 
-                                </div>
-                              </div>
-                            </div>
+                    {% endfor %}
 
-
-
-                </div>
-
-      </body>
-    </html>
-
-    {%  endblock %}
+            </div>
+          </div>
+        </div>
+    </div>
+{%  endblock %}

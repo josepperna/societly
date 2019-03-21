@@ -1,43 +1,46 @@
 {% extends user.is_authenticated|yesno:"societly/base-loged-in.html,societly/base.html" %}
 
-{% load staticfiles %}     
-    {% block body_block %} 
-        <div class="row flex-grow h-100">
+{% load staticfiles %}    
+{% block title_block %}
+    <title>Home</title>
+{% endblock %} 
+{% block body_block %} 
+    <div class="row flex-grow h-100">
+        
+        <div class="col-12 col-sm-6 h-100" >
             
-            <div class="col-12 col-sm-6 h-100" >
-                
-                    <div style = " float:right; position:relative; top:30%; !important;">  
-                        
-                        <div><h2 style = "color: #8C53CD; float:right;">Goodbye Excel.</h2>
-                        </div>
-                        
-                        <div><h2 style = "color: #8C53CD; float:right;">Welcome Societly.</h2>
-                        </div>
-                        
-                        
-                        <div><h6 style = "color: #8C53CD; float:right;">With Societly you can do this <br> 
-                            and even that and if you want <br>
-                            you can also do that as well.</h6>
-                        </div>
-                            
-                    <div style  = "margin-left: 35%;">
-                        <a class="btn btn-primary" href="{%url 'register'%}" role="button">Sign Up</a>
-                    </div>
-                        
+                <div style = " float:right; position:relative; top:30%; !important;">  
+                    
+                    <div><h2 style = "color: #8C53CD; float:right;">Goodbye Excel.</h2>
                     </div>
                     
-            </div>
-                
-                
-                <div class=" col-6 h-100 d-none d-sm-block" style = "padding:0;   overflow: hidden;">
-                    <img src = "{{MEDIA_URL}}home.jpeg" style=" max-height:100%;    left: -100%;
-                    right: -100%;
-                    top: -100%;
-                    bottom: -100%;"> 
-                    <div style = "background-color: rgb(81, 34, 149); height:100%;">
+                    <div><h2 style = "color: #8C53CD; float:right;">Welcome Societly.</h2>
                     </div>
+                    
+                    
+                    <div><h6 style = "color: #8C53CD; float:right;">With Societly you can do this <br> 
+                        and even that and if you want <br>
+                        you can also do that as well.</h6>
+                    </div>
+                        
+                <div style  = "margin-left: 35%;">
+                    <a class="btn btn-primary" href="{%url 'register'%}" role="button">Sign Up</a>
                 </div>
                     
+                </div>
+                
         </div>
+            
+            
+            <div class=" col-6 h-100 d-none d-sm-block" style = "padding:0;   overflow: hidden;">
+                <img src = "{{MEDIA_URL}}home.jpeg" style=" max-height:100%;    left: -100%;
+                right: -100%;
+                top: -100%;
+                bottom: -100%;"> 
+                <div style = "background-color: rgb(81, 34, 149); height:100%;">
+                </div>
+            </div>
+                
+    </div>
 
-     {% endblock %}
+{% endblock %}
