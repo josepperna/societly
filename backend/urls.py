@@ -20,5 +20,7 @@ urlpatterns = [
     url(r'^showalleve/$', views.show_all_events, name='all_events'),
     url(r'^showallmysoc/$', views.show_your_societies, name='my_societies'),
     url(r'^showallmyeve/$', views.show_your_events, name='my_events'),
+    #possible future functionalities
     #url(r'^payment/$', views.payment, name='payament'),
+    # url(r'^registerSociety/', views.register_society, name='registerSociety'),
 ]

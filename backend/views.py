@@ -60,7 +60,7 @@ def register(request):
             student.user = user
 
             if 'picture' in request.FILES:
-                print("yes")
+                print("picture exists")
                 student.picture = request.FILES['picture']
 
             student.save()
@@ -72,6 +72,28 @@ def register(request):
          student_form = StudentForm()
 
     return render(request, 'societly/register.html', {'user_form':user_form,'student_form':student_form})
+
+#def register_society(request):
+#    if request.method == 'POST':
+#            society_form = StudentForm(data = request.POST)
+#
+#            if scoeity_form.is_valid():
+#                society = society_form.save(commit=False)
+#
+#                if 'logo' in request.FILES:
+#                    print("logo exists")
+#                    society.picture = request.FILES['logo']
+#
+#                society.save()
+#
+#
+#                return log_in_form(request)
+#
+#       else:
+#            society_form = RegisterSocietyForm()
+#
+#        return render(request, 'societly/registerSociety.html', {'society_form':society_form})
+
 
 @login_required
 def profile(request):
