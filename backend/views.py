@@ -158,7 +158,7 @@ def event(request, eventId):
         context_dict['description'] = event.description
         context_dict['image'] = event.image
         context_dict['organized_by'] = Society.organized_by.all()
-        context_dict['attended_by'] = Student.attended_by.all()
+        context_dict['participants'] = Student.attended_by.all()
     except:
         context_dict['name'] = None
         context_dict['date'] = None
@@ -166,7 +166,7 @@ def event(request, eventId):
         context_dict['description'] = None
         context_dict['image'] = None
         context_dict['organized_by'] = None
-        context_dict['attended_by'] = None
+        context_dict['participants'] = None
     return render(request, "societly/event.html", context = context_dict)
 
 @login_required
