@@ -1,5 +1,6 @@
 $(document).ready(function(){ 
-    if("{{ member }}"){
+    var member = $('.subscribe').attr('data-member');
+    if (member == "True"){
         $('.subscribe').hide();
         $('.unsubscribe').show(); 
     }else {

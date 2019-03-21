@@ -128,7 +128,8 @@ def log_in_form(request):
 def society(request, society_name_slug):
     context_dict = {}
     try:
-        society = Society.objects.filter(slug = society_name_slug).first()
+        society = Society.objects.filter(slug = society_name_slug.lower()).first()
+        print(society)
         events = Event.objects.filter(organized_by = society)
         context_dict['society'] = society
         context_dict['events'] = events
@@ -140,7 +141,7 @@ def society(request, society_name_slug):
                 context_dict['member'] = False
         else:
             context_dict['member'] = False
-
+        print(context_dict['member'])
     except Exception as e:
         context_dict['society'] = None
         context_dict['events'] = None
@@ -208,7 +209,7 @@ def user_logout(request):
 def subscribe_to_society(request):
     if request.method == 'GET':
         society_slug = request.GET['society']
-        society = Society.objects.get(slug = society_slug)
+        society = Society.objects.get(slug = society_slug.lower())
         if society:
             Membership.objects.get_or_create(society=society ,member=Student.objects.get(user=request.user))
     return HttpResponse()
@@ -217,7 +218,7 @@ def subscribe_to_society(request):
 def unsubscribe_from_society(request):
     if request.method == 'GET':
         society_slug = request.GET['society']
-        society = Society.objects.get(slug = society_slug)
+        society = Society.objects.get(slug = society_slug.lower())
         if society:
             Membership.objects.filter(society=society, member=Student.objects.get(user=request.user)).delete()
     return HttpResponse()
