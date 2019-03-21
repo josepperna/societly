@@ -23,15 +23,15 @@ def show_all_societies(request):
 @login_required
 def show_your_societies(request):
     student = Student.objects.filter(user = request.user)
-    societies = student.society_set.all()
+    societies = Membership.objects.filter(member = student)
     context_dict = {'societies': societies}
     print(societies)
-    return render(request, 'societly/Show_all_societies.html', context_dict)
+    return render(request, 'societly/showmysocieties.html', context_dict)
 
 def show_all_events(request):
-    events = Event.object.order_by('date')
+    events = Event.objects.order_by('date')
     context_dict = {'events': events}
-    return render(request, 'societly/Show_all_events.html', context_dict)
+    return render(request, 'societly/show_all_events.html', context_dict)
 
 
 @login_required
@@ -40,7 +40,7 @@ def show_your_events(request):
     events = student.event_set.all()
     context_dict = {'events': events}
     print(events)
-    return render(request, 'societly/Show_all_events.html', context_dict)
+    return render(request, 'societly/showmyevents.html', context_dict)
 
 
 def register(request):
