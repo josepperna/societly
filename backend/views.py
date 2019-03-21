@@ -171,6 +171,7 @@ def society(request, society_name_slug):
         context_dict['society'] = None
         context_dict['events'] = None
         context_dict['member'] = False
+    print(events)
     return render(request, "societly/society.html", context = context_dict)
 
 #View to see a specific event's info
@@ -184,9 +185,10 @@ def event(request, eventId):
         context_dict['time'] = event.time
         context_dict['description'] = event.description
         context_dict['image'] = event.image
-        context_dict['organized_by'] = Society.organized_by.all()
-        context_dict['participants'] = Student.attended_by.all()
-    except:
+        context_dict['organized_by'] = event.organized_by.all
+        context_dict['participants'] = event.attended_by.all
+    except Exception as e:
+        print(e)
         context_dict['name'] = None
         context_dict['date'] = None
         context_dict['time'] = None
