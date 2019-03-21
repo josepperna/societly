@@ -18,16 +18,7 @@ class LogInForm(forms.ModelForm):
 		model = User
 		fields = ('username','password')
 
-<<<<<<< HEAD
 #Form to fill in Student information
-=======
-class RegisterSocietyForm(forms.ModelForm):
-	class Meta:
-
-		model = Society
-		fields = ('name','description','logo','email','facebook','linkedin','instagram','twitter','members')
-
->>>>>>> e9707936bc89f3cf4b94f051f5a72ec406e75e1e
 class StudentForm(forms.ModelForm):
 
     class Meta:
