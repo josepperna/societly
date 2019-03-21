@@ -45,7 +45,6 @@ class EventForm(forms.ModelForm):
     date = forms.CharField(widget = forms.DateInput)
     time = forms.CharField(widget = forms.TimeInput)
     description = forms.CharField(widget = forms.Textarea)
-    image = forms.ImageField()
 
     class Meta:
 

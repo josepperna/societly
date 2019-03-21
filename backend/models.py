@@ -68,7 +68,7 @@ class Society(models.Model):
 
 class Event(models.Model):
 
-    name = models.CharField(max_length = 128)
+    name = models.CharField(max_length = 128, unique = True)
     date = models.DateField()
     time = models.TimeField()
     description = models.TextField(max_length = 2000)
