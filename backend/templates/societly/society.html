@@ -6,7 +6,7 @@
         #seemorebtn {display:none;}
         .description {display:inline;}
         </style>
-
+          <script src="/static/js/ajax.js"></script>
             <div class=" container-fluid"  onload="seeMore()" style ="background-color:mediumpurple; height: 100%; padding: 0">       
                 <div style = " margin: 10px;">
                     <div class="row">
@@ -16,16 +16,16 @@
                       <div class="col-12 col-sm-9">
                          <div style = "margin-top: 10px"> <h2>{{society.name}}</h2></div>
                          <p class = "description"><p class="description" id = "first"></p><p  class="description" id = "dots"></p>
-                            <p class="description" id = "second"></p></p>
+                            <p class="description" id = "second"></p>
                          <button class="btn btn-light" onclick="showMore()" id = "sbtn">Read more</button>
                          {% if not user.is_authenticated %}
                             <a class="btn btn-primary" href="{%url 'register'%}" role="button">Register to subscribe</a>
                          {% elif member %}
-                            <a id="unsubscribe" class="btn btn-primary" role="button" data-society="{{society}}">Unsubscribe</a>
-                            <a id="subscribe" class="btn btn-primary" role="button" data-society="{{society}}" style="visibility:collapse">Subscribe</a>
+                            <a id="unsubscribe1" class="btn btn-primary unsubscribe" role="button" data-society="{{society.slug}}">Unsubscribe</a>
+                            <a id="subscribe1"class="btn btn-primary subscribe" role="button" data-society="{{society.slug}}">Subscribe</a>
                          {% else %}
-                            <a id="unsubscribe" class="btn btn-primary" role="button" data-society="{{society}}" style="visibility:collapse">Unsubscribe</a>
-                            <a id="subscribe" class="btn btn-primary" role="button" data-society="{{society}}">Subscribe</a>
+                            <a id="unsubscribe" class="btn btn-primary unsubscribe" role="button" data-society="{{society.slug}}">Unsubscribe</a>
+                            <a id="subscribe" class="btn btn-primary subscribe" role="button" data-society="{{society.slug}}">Subscribe</a>
                          {% endif %}
                         
                       </div>

@@ -206,10 +206,18 @@ def user_logout(request):
 
 @login_required
 def subscribe_to_society(request):
-    society = None
-    print("aaaa")
     if request.method == 'GET':
-        society = request.GET['society']
+        society_slug = request.GET['society']
+        society = Society.objects.get(slug = society_slug)
         if society:
-            Membership.obejcts.get_or_create(society=society, member=Student.objects.get(user=request.user))
+            Membership.objects.get_or_create(society=society ,member=Student.objects.get(user=request.user))
+    return HttpResponse()
+
+@login_required
+def unsubscribe_from_society(request):
+    if request.method == 'GET':
+        society_slug = request.GET['society']
+        society = Society.objects.get(slug = society_slug)
+        if society:
+            Membership.objects.filter(society=society, member=Student.objects.get(user=request.user)).delete()
     return HttpResponse()
