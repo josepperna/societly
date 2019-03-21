@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 
 # Create your models here.
 
+#Model to represent student/member (with one-to-one relationship with user)
 class Student(models.Model):
 
     YEAR = (
@@ -40,7 +41,7 @@ class Student(models.Model):
     def __str__(self):
         return self.matricNo
 
-
+#Society model with slug field and many to many relationship with Student
 class Society(models.Model):
 
     name = models.CharField(max_length = 128, unique = True)
@@ -65,7 +66,7 @@ class Society(models.Model):
     def __str__(self):
         return self.name
 
-
+#Event model with many to many relationships with Society and User
 class Event(models.Model):
 
     name = models.CharField(max_length = 128, unique = True)
@@ -84,7 +85,7 @@ class Event(models.Model):
     def __str__(self):
         return self.name
 
-
+#Review model (not implemented)
 class Review(models.Model):
 
     rating = models.IntegerField(validators=[
@@ -103,7 +104,7 @@ class Review(models.Model):
     def __str__(self):
         return self.rating
 
-
+#Intermediate model Membership for the many to many relationship between Student and Society
 class Membership(models.Model):
 
     ROLE = (
@@ -118,5 +119,3 @@ class Membership(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.member, self.society)
-
-# Get some information about intermediate models on the Django website

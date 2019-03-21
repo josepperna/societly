@@ -2,6 +2,7 @@ from django import forms
 from .models import Student, Society, Event, Review, Membership
 from django.contrib.auth.models import User
 
+#Form to fill in User information
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
 
@@ -9,6 +10,7 @@ class UserForm(forms.ModelForm):
 		model = User
 		fields = ('username','email','password', 'first_name', 'last_name')
 
+#Form for logging into the website
 class LogInForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
 	class Meta:
@@ -16,13 +18,14 @@ class LogInForm(forms.ModelForm):
 		model = User
 		fields = ('username','password')
 
-
+#Form to fill in Student information
 class StudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
         fields = ('matricNo', 'picture', 'year', 'degree')
 
+#Form to fill in Society information
 class SocietyForm(forms.ModelForm):
 
     name = forms.CharField(max_length = 128, help_text = "Please enter the name of the society")
@@ -38,7 +41,7 @@ class SocietyForm(forms.ModelForm):
         model = Society
         exclude = ('members',)
 
-
+#Form to fill in Event information
 class EventForm(forms.ModelForm):
 
     name = forms.CharField(max_length = 128, help_text = "Please enter the name of the event")
@@ -51,7 +54,7 @@ class EventForm(forms.ModelForm):
         model = Event
         exclude = ('attended_by', 'organized_by',)
 
-
+#Form to fill in Review information (not implemented)
 class ReviewForm(forms.ModelForm):
 
     rating = forms.IntegerField(max_value = 10, min_value = 0)
@@ -62,7 +65,7 @@ class ReviewForm(forms.ModelForm):
         exclude = ('event', 'made_by')
 
 
-
+#Form to fill in Membership information
 class MemberForm(forms.ModelForm):
 
     YEAR = (
