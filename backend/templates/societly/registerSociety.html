@@ -1,0 +1,18 @@
+<!-- FUTURE FUNCTIONALITY
+
+{% extends 'societly/base.html' %}
+
+{% load staticfiles %}
+{% block title_block %}
+    <title>Register Society</title>
+{% endblock %}
+{% block body_block %}
+    <div id="box" style = "text-align: center">
+        <form is = "society_registration_form" action="{% url 'registerSociety' %}" method="POST" enctype = "multipart/form-data">
+            {% csrf_token %}
+            {{society_form.as_p}}            
+            <input type="submit" value= "Create"/>
+        </form>
+    </div>
+{% endblock %}
+-->

@@ -16,6 +16,11 @@ class LogInForm(forms.ModelForm):
 		model = User
 		fields = ('username','password')
 
+class RegisterSocietyForm(forms.ModelForm):
+	class Meta:
+
+		model = Society
+		fields = ('name','description','logo','email','facebook','linkedin','instagram','twitter','members')
 
 class StudentForm(forms.ModelForm):
 

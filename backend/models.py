@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.template.defaultfilters import slugify
 
-# Create your models here.
-
 class Student(models.Model):
 
     YEAR = (
@@ -118,5 +116,3 @@ class Membership(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.member, self.society)
-
-# Get some information about intermediate models on the Django website
