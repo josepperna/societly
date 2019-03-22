@@ -195,7 +195,7 @@ def event(request, eventId):
 @login_required
 def add_event(request, society_name_slug):
     if request.method == 'POST':
-        event_form = EventForm(data = request.POST)
+        event_form = EventForm(request.POST, request.FILES)
         society = Society.objects.filter(slug = society_name_slug)
         student = Student.objects.filter(user = request.user).first()
         membership = society.first().membership_set.filter(society = society, member = student)
@@ -204,8 +204,7 @@ def add_event(request, society_name_slug):
             ev.organized_by = society
 
             if 'image' in request.FILES:
-                print("yes")
-                ev.image = request.FILES['image']
+                ev.image = event_form.cleaned_data['image']
 
             ev.save()
             return event(request, ev.id)
