@@ -59,9 +59,6 @@ def register(request):
 
             student = student_form.save(commit=False)
             student.user = user
-
-            #if 'picture' in request.FILES:
-            print("picture exists")
             student.picture = student_form.cleaned_data['picture']
 
             student.save()
@@ -197,15 +194,10 @@ def add_event(request, society_name_slug):
     if request.method == 'POST':
         event_form = EventForm(request.POST, request.FILES)
         society = Society.objects.filter(slug = society_name_slug)
-        student = Student.objects.filter(user = request.user).first()
-        membership = society.first().membership_set.filter(society = society, member = student)
         if event_form.is_valid():
             ev = event_form.save()
             ev.organized_by = society
-
-            if 'image' in request.FILES:
-                ev.image = event_form.cleaned_data['image']
-
+            ev.image = event_form.cleaned_data['image']
             ev.save()
             return event(request, ev.id)
 
