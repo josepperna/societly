@@ -1,3 +1,3 @@
 # Societly
 
-https://www.helixcatofen.pythonanywhere.com
+helixcatofen.pythonanywhere.com
