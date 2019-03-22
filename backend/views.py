@@ -48,9 +48,9 @@ def show_your_events(request):
 def register(request):
 
     if request.method == 'POST':
-
+        print("aa")
         user_form = UserForm(data = request.POST)
-        student_form = StudentForm(data = request.POST)
+        student_form = StudentForm(request.POST, request.FILES)
 
         if user_form.is_valid() and student_form.is_valid():
             user= user_form.save()
@@ -60,9 +60,9 @@ def register(request):
             student = student_form.save(commit=False)
             student.user = user
 
-            if 'picture' in request.FILES:
-                print("picture exists")
-                student.picture = request.FILES['picture']
+            #if 'picture' in request.FILES:
+            print("picture exists")
+            student.picture = student_form.cleaned_data['picture']
 
             student.save()
 
