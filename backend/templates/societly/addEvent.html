@@ -1,4 +1,4 @@
-{% extends 'societly/base.html' %}
+{% extends user.is_authenticated|yesno:"societly/base-loged-in.html,societly/base.html" %}
 
 {% load staticfiles %}
 {% block title_block %}
