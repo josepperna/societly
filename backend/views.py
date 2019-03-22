@@ -28,13 +28,11 @@ def show_your_societies(request):
     student = Student.objects.filter(user = request.user)
     societies = Membership.objects.filter(member = student)
     context_dict = {'societies': societies}
-    print(societies)
     return render(request, 'societly/showmysocieties.html', context_dict)
 
 #Show all events in the database
 def show_all_events(request):
     events = Event.objects.all()
-    print(events)
     context_dict = {'events': events}
     return render(request, 'societly/show_all_events.html', context_dict)
 
@@ -44,7 +42,6 @@ def show_your_events(request):
     student = Student.objects.filter(user = request.user)
     events = Event.objects.filter(attended_by = student)
     context_dict = {'events': events}
-    print(events)
     return render(request, 'societly/showmyevents.html', context_dict)
 
 #View to sign up with a new account
@@ -108,9 +105,7 @@ def profile(request):
         context_dict['matricNo'] = member.matricNo
         context_dict['degree'] = member.degree
         context_dict['societies'] =  Membership.objects.filter(member = member).order_by('-date_joined')[:3]
-        print(context_dict['societies'])
         context_dict['events'] = Event.objects.filter(attended_by = member).order_by('-date')[:3]
-        print(context_dict['events'])
         context_dict['picture'] = member.picture
     except Exception as e:
         print(e)
@@ -153,7 +148,6 @@ def society(request, society_name_slug):
     context_dict = {}
     try:
         society = Society.objects.filter(slug = society_name_slug.lower()).first()
-        print(society)
         events = Event.objects.filter(organized_by = society)
         context_dict['society'] = society
         context_dict['events'] = events
@@ -165,13 +159,11 @@ def society(request, society_name_slug):
                 context_dict['member'] = False
         else:
             context_dict['member'] = False
-        print(context_dict['member'])
     except Exception as e:
         print(e)
         context_dict['society'] = None
         context_dict['events'] = None
         context_dict['member'] = False
-    print(events)
     return render(request, "societly/society.html", context = context_dict)
 
 #View to see a specific event's info
@@ -187,6 +179,7 @@ def event(request, eventId):
         context_dict['image'] = event.image
         context_dict['organized_by'] = event.organized_by.all
         context_dict['participants'] = event.attended_by.all
+        #context_dict['attending'] = event.attended_by_set.
     except Exception as e:
         print(e)
         context_dict['name'] = None
@@ -201,13 +194,11 @@ def event(request, eventId):
 #View to add a new event to a specific societies list of events
 @login_required
 def add_event(request, society_name_slug):
-
     if request.method == 'POST':
         event_form = EventForm(data = request.POST)
         society = Society.objects.filter(slug = society_name_slug)
         student = Student.objects.filter(user = request.user).first()
         membership = society.first().membership_set.filter(society = society, member = student)
-        
         if event_form.is_valid():
             ev = event_form.save()
             ev.organized_by = society
@@ -236,7 +227,7 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
-#View to get the membership of a society
+#View to subscribe to a society
 @login_required
 def subscribe_to_society(request):
     if request.method == 'GET':
@@ -249,6 +240,26 @@ def subscribe_to_society(request):
 #View to delete a membership of a society
 @login_required
 def unsubscribe_from_society(request):
+    if request.method == 'GET':
+        society_slug = request.GET['society']
+        society = Society.objects.get(slug = society_slug.lower())
+        if society:
+            Membership.objects.filter(society=society, member=Student.objects.get(user=request.user)).delete()
+    return HttpResponse()
+
+#View to attend an event
+@login_required
+def attendEvent(request):
+    if request.method == 'GET':
+        society_slug = request.GET['society']
+        society = Society.objects.get(slug = society_slug.lower())
+        if society:
+            Membership.objects.get_or_create(society=society ,member=Student.objects.get(user=request.user))
+    return HttpResponse()
+
+#View to not attend an event
+@login_required
+def unattendEvent(request):
     if request.method == 'GET':
         society_slug = request.GET['society']
         society = Society.objects.get(slug = society_slug.lower())
