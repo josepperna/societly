@@ -177,8 +177,8 @@ def event(request, eventId):
         context_dict['time'] = event.time
         context_dict['description'] = event.description
         context_dict['image'] = event.image
-        context_dict['organized_by'] = event.organized_by.all
-        context_dict['participants'] = event.attended_by.all
+        context_dict['organized_by'] = event.organized_by.all()[0]
+        context_dict['participants'] = event.attended_by.all()
         #context_dict['attending'] = event.attended_by_set.
     except Exception as e:
         print(e)
